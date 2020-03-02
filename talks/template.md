@@ -24,6 +24,12 @@ Browser requirements
 
 <!-- .slide: data-background="images/bg-3.png" data-title="slide-where-we-add-firefly-basemap" -->
 
+## Section Header
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-where-we-add-firefly-basemap" -->
+
 ## Source Code
 
 <div class="two-columns">
