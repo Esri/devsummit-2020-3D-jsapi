@@ -1,0 +1,47 @@
+<script>
+function snippet(containers, interlinks) {
+  require([
+    "esri/WebScene",
+    "esri/views/SceneView",
+    "esri/layers/SceneLayer",
+    "esri/widgets/Search",
+    "dojo/domReady!"
+  ], function(WebScene, SceneView, SceneLayer, Search) {
+    var scene = new WebScene({
+      portalItem: {
+        id: "69af87076d884670995217536d60f150"
+      }
+    });
+    var view = new SceneView({
+      container: "viewDiv",
+      map: scene,
+      camera: {
+        position: [-74.0338, 40.6913, 707],
+        tilt: 81,
+        heading: 50
+      }
+    });
+     scene.when(function() {
+      scene.layers.items[2].popupTemplate = {
+        title: "Building <b>{NAME}</b>",
+        content: "This build has an enery consumption<br/>"
+          + "of <b>{ElectricUse}</b> kBTU, for a score "
+          + "of <b>{StarScore}</b>."
+      };
+    });
+    var layer = new SceneLayer({
+      url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/NYC_Tree_Clipped/FeatureServer"
+    });
+    scene.add(layer);
+    var searchWidget = new Search({
+      view: view
+    });
+    view.ui.add(searchWidget, {
+      position: "top-right"
+    });
+  });
+}
+
+</script>
+
+<script src="./support/snippet.js"></script>

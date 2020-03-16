@@ -1,0 +1,47 @@
+<script>
+  function snippet(containers, interlinks) {
+    require([
+      "esri/WebScene",
+      "esri/views/SceneView",
+      "esri/layers/FeatureLayer",
+      "dojo/domReady!"
+    ], function(WebScene, SceneView, FeatureLayer) {
+      var scene = new WebScene({
+        portalItem: {
+          id: "69af87076d884670995217536d60f150"
+        }
+      });
+      var view = new SceneView({
+        container: "viewDiv",
+        map: scene
+      });
+      var layer = new FeatureLayer({
+        url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/NYC_Tree_Clipped/FeatureServer",
+        renderer: {
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "point-3d",
+            symbolLayers: [
+              {
+                type: "object",
+                resource: {
+                  href:
+                    "https://static.arcgis.com/arcgis/styleItems/RealisticTrees/web/resource/CastaneaDentata.json"
+                },
+                height: 24
+              }
+            ],
+            styleOrigin: {
+              styleName: "EsriRealisticTreesStyle",
+              name: "Castanea"
+            }
+          }
+        }
+      });
+      scene.add(layer);
+
+    });
+  }
+</script>
+
+<script src="./support/snippet.js"></script>
