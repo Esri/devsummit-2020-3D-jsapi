@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Esri Developer Summit 2020: ArcGIS API for JavaScript Presentations</title>
+    <meta property="og:title" content="Esri Developer Summit 2020: ArcGIS API for JavaScript Presentations" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://esri.github.io/devsummit-2020-3D-jsapi/featured-slide.jpg" />
+    <meta property="og:url" content="https://esri.github.io/devsummit-2020-3D-jsapi" />
+    <meta name="description" content="Esri Developer Summit 2020: ArcGIS API for JavaScript Presentations">
+    <meta property="og:description" content="Esri Developer Summit 2020: ArcGIS API for JavaScript Presentations">
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <!-- <link rel="stylesheet" href="./css/highlight/railscasts.css" /> -->
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="./assets/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: data-background="images/bg-1.png" data-title="add-scene-layer" class="title" -->
+
+# ArcGIS API for JavaScript
+## Create 3D planning web apps using <br />BIM- and editing capabilities
+
+
+
+David Koerner, Esri R&D Center Zürich \
+Arno Fiva, Esri R&D Center Zürich
+
+2020 ESRI DEVELOPER SUMMIT​ | Palm Springs, CA
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-3.png" -->
+
+## Agenda
+
+- Visualization
+- Interactive Tools
+- Editing
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## 3D BIM data in the browser
+
+* Intuitive <!-- .element class="fragment" -->
+* Share with anyone <!-- .element class="fragment" -->
+* Device support, no additional software required <!-- .element class="fragment" -->
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## i3s Specification
+
+https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
+
+<a href="https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md" target="_blank">
+
+![i3s BSL Spec](./images/bim-editing/i3s-spec.gif)
+
+</a>
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-4.png" -->
+
+# Visualizations
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### BuildingSceneLayer Item
+
+<a href="https://www.arcgis.com/home/item.html?id=64f68adf72474330b195ba2718a8d3e0" target="_blank">
+
+![BuildingSceneLayer Portal Item](./images/bim-editing/portal-item.png)
+
+</a>
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Load BSL
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+<button class="play" id="addBuildingSceneLayer"></button>
+
+```ts
+// Load using portal item
+var buildingSceneLayer = new BuildingSceneLayer({
+  portalItem: {
+    id: "64f68adf72474330b195ba2718a8d3e0"
+  }
+});
+
+// Add to scene
+map.add(buildingSceneLayer);
+```
+
+```ts
+// Load using service URL
+var buildingSceneLayer = new BuildingSceneLayer({
+  url: "https://tiles.arcgis.com/.../services/" +
+   "Admin_Building_v17/SceneServer"
+});
+
+// Add to scene
+map.add(buildingSceneLayer);
+```
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+  </div>
+</div>
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-sublayers" -->
+
+## BSL Sublayers
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+<button class="play" id="filterBuildingSceneLayer"></button>
+
+```ts
+// Iterate through all sublayers
+buildingSceneLayer.allSublayers.forEach(l => {
+
+  if (l.title === "Floors" || l.startWith("Structural")) {
+    l.visible = true;
+  } else {
+    l.visible = l.type === "building-group";
+  }
+});
+```
+
+```ts
+// Exterior shell (simplified, no interior details)
+var shell = buildingSceneLayer.allSublayers.filter(l =>
+  l.modelName === "Overview"
+);
+
+// Group layer containing all detailed model
+var fullModel = buildingSceneLayer.allSublayers.filter(l =>
+  l.modelName === "Overview"
+);
+
+```
+<!-- .element class="fragment" -->
+
+[i3s model names](https://github.com/Esri/i3s-spec/blob/master/docs/1.7/subLayerModelName.md)
+<!-- .element class="fragment" -->
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+  </div>
+</div>
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-sublayers" -->
+
+## BSL Renderer
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+<button class="play" id="renderBuildingSceneLayer"></button>
+
+```ts
+// Change windows
+
+```
+
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+  </div>
+</div>
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Filter Blocks
+
+Filter by floors
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Filter Modes
+
+Use x-ray and wireframe modes
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-4.png" -->
+
+# Interactive Tools
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Daylight
+</script></section><section  data-markdown><script type="text/template">
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Slice
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Measurements
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Line of Sight
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-4.png" -->
+
+# Editing
+
+
+</script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Thank you
+</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        // { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true },
+        { src: './prism/plugin.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"none","backgroundTransition":"none","width":1366,"height":768}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+
+      // Define default background
+      // for (var slide of document.getElementsByTagName('section')){
+      //   if (!(slide.getAttribute('data-background') ||
+      //         slide.getAttribute('data-background-video') ||
+      //         slide.getAttribute('data-background-iframe') ||
+      //         slide.getAttribute('data-background-image'))){
+      //     slide.setAttribute('data-background', 'images/bg-2.png');
+      //     slide.setAttribute('data-background-image', 'images/bg-2.png');
+      //   }
+      // }
+
+      Reveal.addEventListener('ready', function(event) {
+        addEventListener("message", function(event) {
+          if (event.data && event.data.type === "fullscreen") {
+            if (document.webkitCurrentFullScreenElement) {
+              document.webkitExitFullscreen();
+              return;
+            }
+            var iframes = document.querySelectorAll("iframe");
+            for (var i = 0; i < iframes.length; i++) {
+              var iframe = iframes[i];
+              if (iframe.contentWindow === event.source) {
+                iframe.webkitRequestFullscreen();
+                return;
+              }
+            }
+          }
+        });
+
+        var playButtons = document.querySelectorAll('[data-play-frame]');
+
+        for (var i = 0; i < playButtons.length; i++) {
+          playButtons[i].addEventListener('click', (function(frameName, argument) {
+            return function(event) {
+              event.stopPropagation();
+              event.preventDefault();
+              window.frames[frameName].contentWindow.postMessage({ play: true, argument: argument }, '*');
+            };
+          })(playButtons[i].getAttribute('data-play-frame'), playButtons[i].getAttribute("data-play-argument")));
+          playButtons[i].addEventListener('mousedown', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+          });
+        }
+      });
+
+      Reveal.addEventListener( 'slide-animation-title', function() {
+        var textWrapper = document.getElementById('letters');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        var textWrapper = document.getElementById('animation');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime({
+            targets: '.letter',
+            scale: [0.3,1],
+            opacity: [0,1],
+            translateZ: 0,
+            easing: "easeOutExpo",
+            duration: 600,
+            delay: (el, i) => 1000 + 70 * (i+1)
+          });
+    } );
+    </script>
+  </body>
+</html>
