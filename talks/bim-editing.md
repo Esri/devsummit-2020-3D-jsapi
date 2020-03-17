@@ -103,7 +103,7 @@ map.add(buildingSceneLayer);
 
   </div>
   <div class="right-column">
-    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
   </div>
 </div>
 
@@ -154,7 +154,7 @@ var fullModel = buildingSceneLayer.allSublayers.filter(l =>
 
   </div>
   <div class="right-column">
-    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
   </div>
 </div>
 
@@ -182,7 +182,7 @@ var fullModel = buildingSceneLayer.allSublayers.filter(l =>
 
   </div>
   <div class="right-column">
-    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
   </div>
 </div>
 
