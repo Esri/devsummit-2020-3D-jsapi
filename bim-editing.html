@@ -78,7 +78,7 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Load BSL
+## Load BuildingSceneLayer
 
 <div class="two-columns">
   <div class="left-column">
@@ -88,25 +88,25 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 ```ts
 // Load using portal item
-var buildingSceneLayer = new BuildingSceneLayer({
+const buildingLayer = new BuildingSceneLayer({
   portalItem: {
     id: "64f68adf72474330b195ba2718a8d3e0"
   }
 });
 
 // Add to scene
-map.add(buildingSceneLayer);
+map.add(buildingLayer);
 ```
 
 ```ts
 // Load using service URL
-var buildingSceneLayer = new BuildingSceneLayer({
+const buildingLayer = new BuildingSceneLayer({
   url: "https://tiles.arcgis.com/.../services/" +
    "Admin_Building_v17/SceneServer"
 });
 
 // Add to scene
-map.add(buildingSceneLayer);
+map.add(buildingLayer);
 ```
 
 </div>
@@ -114,14 +114,14 @@ map.add(buildingSceneLayer);
 
   </div>
   <div class="right-column">
-    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
   </div>
 </div>
 
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-sublayers" -->
 
-## BSL Sublayers
+## Sublayers
 
 <div class="two-columns">
   <div class="left-column">
@@ -131,7 +131,7 @@ map.add(buildingSceneLayer);
 
 ```ts
 // Iterate through all sublayers
-buildingSceneLayer.allSublayers.forEach(l => {
+buildingLayer.allSublayers.forEach(l => {
 
   if (l.title === "Floors" || l.startWith("Structural")) {
     l.visible = true;
@@ -141,36 +141,38 @@ buildingSceneLayer.allSublayers.forEach(l => {
 });
 ```
 
+<div class="fragment">
+
 ```ts
 // Exterior shell (simplified, no interior details)
-var shell = buildingSceneLayer.allSublayers.filter(l =>
+const shell = buildingLayer.allSublayers.filter(l =>
   l.modelName === "Overview"
 );
 
 // Group layer containing all detailed model
-var fullModel = buildingSceneLayer.allSublayers.filter(l =>
+const fullModel = buildingLayer.allSublayers.filter(l =>
   l.modelName === "Overview"
 );
 
 ```
-<!-- .element class="fragment" -->
 
 [i3s model names](https://github.com/Esri/i3s-spec/blob/master/docs/1.7/subLayerModelName.md)
-<!-- .element class="fragment" -->
+
+</div>
 
 </div>
 
 
   </div>
   <div class="right-column">
-    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
   </div>
 </div>
 
 </script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-sublayers" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-renderer" -->
 
-## BSL Renderer
+## Renderer
 
 <div class="two-columns">
   <div class="left-column">
@@ -179,7 +181,27 @@ var fullModel = buildingSceneLayer.allSublayers.filter(l =>
 <button class="play" id="renderBuildingSceneLayer"></button>
 
 ```ts
-// Change windows
+// Color windows green
+const windowLayer = buildingLayer
+  .allSublayers.find(l => l.title === "Windows");
+
+windowLayer.renderer = new SimpleRenderer({
+
+  symbol: new MeshSymbol3D({
+    symbolLayers: [
+      new FillSymbol3DLayer({
+        material: {
+          color: [0, 255, 0, 0.8],
+        },
+        edges: new SolidEdges3D({
+          color: [0, 120, 0],
+          size: 1,
+        })
+      })
+    ]
+  })
+
+});
 
 ```
 
@@ -189,22 +211,93 @@ var fullModel = buildingSceneLayer.allSublayers.filter(l =>
 
   </div>
   <div class="right-column">
-    <iframe data-src="./samples/bim-editing/admin-building/" ></iframe>
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
   </div>
 </div>
 
 </script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-filter-blocks" -->
 
-## Filter Blocks
+## Attribute Filter
 
-Filter by floors
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+<button class="play" id="filterFloor"></button>
+
+```ts
+const buildingFilter = new BuildingFilter({
+  filterBlocks: [
+    {
+      filterExpression: "BldgLevel = 3",
+      filterMode: {
+        type: "solid"
+      }
+    }
+  ]
+});
+
+// set the filter in the filters array on the layer
+buildingLayer.filters = [buildingFilter];
+buildingLayer.activeFilterId = buildingFilter.id;
+
+```
+
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
+  </div>
+</div>
 </script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-filter-modes" -->
 
 ## Filter Modes
 
-Use x-ray and wireframe modes
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+<button class="play" id="filterFloorXRay"></button>
+
+```ts
+buildingFilter.filterBlocks.add({
+  filterExpression: "BldgLevel < 5",
+  filterMode: {
+    type: "x-ray"
+  }
+});
+```
+
+</div>
+<div class="code-snippet">
+<button class="play" id="filterFloorWireFrame"></button>
+
+```ts
+buildingFilter.filterBlocks.add({
+  filterExpression: "BldgLevel < 5",
+  filterMode: {
+    type: "wire-frame",
+    edges: {
+      type: "solid",
+      color: [105, 142, 179, 1]
+    }
+  }
+});
+```
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
+  </div>
+</div>
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-4.png" -->
 
