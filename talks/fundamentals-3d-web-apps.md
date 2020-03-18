@@ -289,6 +289,23 @@ Clip to your area of interest
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
+<!-- 
+
+## Presenter Note ##
+
+my-styles.css is not explained in detail, but users need to know that
+they have to set the size of the view, otherwise it will not render.
+The minimum setting is to make the html, body and viewDiv all 100%, i.e.:
+
+      html, body, #viewDiv { 
+        padding: 0; 
+        margin:0; 
+        width: 100%; 
+        height: 100% 
+      }
+-->
+
+
 
 ## Creating basic HTML
 
@@ -298,6 +315,7 @@ Clip to your area of interest
   &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-styles.css&quot;&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
     &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
@@ -307,13 +325,13 @@ Clip to your area of interest
     &lt;title&gt;My first 3D web app&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
     &lt;script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
       require([
         "esri/WebScene",
-        "esri/views/SceneView",
-        "dojo/domReady!"
+        "esri/views/SceneView"
       ], function(WebScene, SceneView) {
         var scene = new WebScene({
           portalItem: {
@@ -328,7 +346,6 @@ Clip to your area of interest
   </code>
   <code class="lang-html">
     &lt;/script&gt;
-    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
   &lt;/body&gt;
   &lt;/html&gt;
     </code></pre>
@@ -347,6 +364,7 @@ Clip to your area of interest
   &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-styles.css&quot;&gt;
   </code>
   <code style="margin-bottom: -30px;" class="lang-html">
     &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
@@ -356,13 +374,13 @@ Clip to your area of interest
     &lt;title&gt;My first 3D web app&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
     &lt;script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
       require([
         "esri/WebScene",
-        "esri/views/SceneView",
-        "dojo/domReady!"
+        "esri/views/SceneView"
       ], function(WebScene, SceneView) {
         var scene = new WebScene({
           portalItem: {
@@ -377,7 +395,6 @@ Clip to your area of interest
   </code>
   <code class="grey">
     &lt;/script&gt;
-    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
   &lt;/body&gt;
   &lt;/html&gt;
     </code></pre>
@@ -398,6 +415,7 @@ Clip to your area of interest
     &lt;meta charset=&quot;utf-8&quot;&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-styles.css&quot;&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
     &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
   </code>
@@ -405,13 +423,13 @@ Clip to your area of interest
     &lt;title&gt;My first 3D web app&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
     &lt;script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="lang-js">
       require([
         "esri/WebScene",
-        "esri/views/SceneView",
-        "dojo/domReady!"
+        "esri/views/SceneView"
       ], function(WebScene, SceneView) {
   </code>
   <code style="margin-bottom: -30px;" class="grey">
@@ -430,7 +448,6 @@ Clip to your area of interest
   </code>
   <code class="grey">
     &lt;/script&gt;
-    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
   &lt;/body&gt;
   &lt;/html&gt;
     </code></pre>
@@ -451,6 +468,7 @@ Clip to your area of interest
     &lt;meta charset=&quot;utf-8&quot;&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-styles.css&quot;&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
     &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
   </code>
@@ -458,13 +476,13 @@ Clip to your area of interest
     &lt;title&gt;My first 3D web app&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
     &lt;script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
       require([
         "esri/WebScene",
-        "esri/views/SceneView",
-        "dojo/domReady!"
+        "esri/views/SceneView"
       ], function(WebScene, SceneView) {
   </code>
   <code style="margin-bottom: -30px;" class="lang-js">
@@ -483,7 +501,6 @@ Clip to your area of interest
   </code>
   <code class="grey">
     &lt;/script&gt;
-    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
   &lt;/body&gt;
   &lt;/html&gt;
     </code></pre>
@@ -506,6 +523,7 @@ Clip to your area of interest
     &lt;meta charset=&quot;utf-8&quot;&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-styles.css&quot;&gt;
     &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
     &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
   </code>
@@ -513,13 +531,13 @@ Clip to your area of interest
     &lt;title&gt;My first 3D web app&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
     &lt;script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="grey">
       require([
         "esri/WebScene",
-        "esri/views/SceneView",
-        "dojo/domReady!"
+        "esri/views/SceneView"
       ], function(WebScene, SceneView) {
   </code>
   <code style="margin-bottom: -30px;" class="grey">
@@ -538,7 +556,6 @@ Clip to your area of interest
   <code class="grey">
       });
     &lt;/script&gt;
-    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
   &lt;/body&gt;
   &lt;/html&gt;
     </code></pre>
@@ -554,29 +571,29 @@ Clip to your area of interest
 <div class="two-columns">
   <div class="left-column">
 
-<div class="code-snippet">
-    <pre><code style="margin-bottom: -30px;" class="lang-html">
+<div class="code-snippet"  style="font-size:90%">
+    <pre style="padding: 0.5em"><code style="margin-bottom: -30px;" class="lang-html">
   &lt;!DOCTYPE html&gt;
   &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset=&quot;utf-8&quot;&gt;
   </code>
   <code style="margin-bottom: -30px;" class="lang-html">
-    &lt;link rel=&quot;stylesheet&quot; 
-          href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;my-styles.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
     &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="lang-html">
     &lt;title&gt;My first 3D web app&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
     &lt;script&gt;
   </code>
   <code style="margin-bottom: -30px;" class="lang-js">
       require([
         "esri/WebScene",
-        "esri/views/SceneView",
-        "dojo/domReady!"
+        "esri/views/SceneView"
       ], function(WebScene, SceneView) {
         var scene = new WebScene({
           portalItem: {
@@ -591,7 +608,6 @@ Clip to your area of interest
   </code>
   <code class="lang-html">
     &lt;/script&gt;
-    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
   &lt;/body&gt;
   &lt;/html&gt;
     </code></pre>
@@ -682,10 +698,7 @@ Clip to your area of interest
     "esri/views/SceneView",
   </code>
   <code style="margin-bottom: -40px;" class="lang-js">
-    "esri/layers/FeatureLayer",
-  </code>
-  <code style="margin-bottom: -40px;" class="grey">
-    "dojo/domReady!"
+    "esri/layers/FeatureLayer"
   </code>
   <code style="margin-bottom: -40px;" class="lang-js">
   ], function(WebScene, SceneView, FeatureLayer) {
@@ -728,8 +741,7 @@ Clip to your area of interest
   require([
     "esri/WebScene",
     "esri/views/SceneView",
-    "esri/layers/FeatureLayer",
-    "dojo/domReady!"
+    "esri/layers/FeatureLayer"
   ], function(WebScene, SceneView, FeatureLayer) {
     var scene = new WebScene({
       portalItem: {
@@ -787,10 +799,9 @@ Clip to your area of interest
         "esri/layers/FeatureLayer",
   </code>
   <code style="margin-bottom: -40px;" class="lang-js">
-        "esri/widgets/Search",
+        "esri/widgets/Search"
   </code>
   <code style="margin-bottom: -40px;" class="grey">
-        "dojo/domReady!"
       ], function(
         WebScene, 
         SceneView, 
@@ -830,8 +841,7 @@ Clip to your area of interest
       "esri/WebScene",
       "esri/views/SceneView",
       "esri/layers/FeatureLayer",
-      "esri/widgets/Search",
-      "dojo/domReady!"
+      "esri/widgets/Search"
     ], function(
       WebScene, 
       SceneView, 
