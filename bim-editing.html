@@ -306,20 +306,117 @@ buildingFilter.filterBlocks.add({
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ## Daylight
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+<button class="play" id="addShadows"></button>
+
+```ts
+view.environment.lighting.directShadowsEnabled = true;
+```
+
+</div>
+
+<div class="code-snippet">
+<button class="play" id="addDaylightWidget"></button>
+
+```ts
+const daylight = new Daylight({
+  view: view,
+  dateOrSeason: "season"
+});
+
+ // Add widget to the top right corner of the view
+view.ui.add(daylight, {
+  position: "top-right"
+});
+```
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/tools/" ></iframe>
+  </div>
+</div>
 </script></section><section  data-markdown><script type="text/template">
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-slice-measurements" -->
 
-## Slice
+## Slice & Measurements
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+
+```ts
+// Add Slice widget
+const slice = new Slice({ view });
+const viewModel = slice.viewModel;
+
+// Exclude ground
+viewModel.excludeGroundSurface = true;
+
+// Exclude specific BSL sublayers
+const stairs = buildingLayer.allSublayers.find(
+  l => l.title === "Stairs"
+);
+
+viewModel.excludedLayers = [stairs];
+```
+
+</div>
+
+
+<div class="code-snippet">
+
+```ts
+// Add Measurement widget
+const measurement = new Measurement({
+  view: view,
+  activeTool = "direct-line",
+});
+view.ui.add(measurement, "top-right");
+measurement.startMeasurement();
+```
+
+</div>
+
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/tools/" ></iframe>
+  </div>
+</div>
+
 </script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" -->
-
-## Measurements
-
-</script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-line-of-sight" -->
 
 ## Line of Sight
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet">
+
+```ts
+const lineOfSight = new LineOfSight({
+  view: view
+});
+view.ui.add(lineOfSight, "top-right");
+```
+
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/tools/" ></iframe>
+  </div>
+</div>
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-4.png" -->
 
