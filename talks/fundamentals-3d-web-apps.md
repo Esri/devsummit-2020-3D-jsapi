@@ -1,5 +1,5 @@
 
-<!-- .slide: data-background="../images/bg-1.png" -->
+<!-- .slide: data-background="images/bg-1.png" -->
 
 ## ArcGIS API for JavaScript<br/> <span style="color:#D9BA6F">Fundamentals for Building 3D Web Apps</span>
 
@@ -9,9 +9,11 @@
   Thomas Other, Esri R&amp;D Center Z&uuml;rich
 </p>
 
-<span style="font-size: 70%">[Live version of this presentation - TODO TODO TODO]()</span>
+<span style="font-size: 70%">https://esri.github.io/devsummit-2020-3D-jsapi/fundamentals-3d-web-apps.html</span>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 
 ## Preface
@@ -28,6 +30,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <b> 3D GIS <span style="color:#D9BA6F">across industries</span></b>
 
@@ -46,7 +49,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
-<!-- .slide: data-background="../images/bg-1.png" -->
+<!-- .slide: data-background="images/bg-3.png" -->
 ### <b>Agenda</b>
 - 3D Platform | Data | API | WebScene
 - Create a simple 3D app
@@ -58,12 +61,15 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ### The ArcGIS <span style="color:#D9BA6F">3D</span> Platform
 
 <img class="plain" src="./images/fundamentals-3d-web-apps/platform-3d.png" height=500 background=none>
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Out-of-the-box</span> 3D Web Apps
 
@@ -71,6 +77,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Building Apps</span> with the ArcGIS 3D Platform
 
@@ -78,12 +85,15 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Custom 3D</span> Web Apps
 
 <img class="plain" src="./images/fundamentals-3d-web-apps/custom-samples.png" height=500 background=none>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### ArcGIS API for JavaScript
 
@@ -92,6 +102,8 @@ using the ArcGIS API for JavaScript
 <img class="plain" src="./images/fundamentals-3d-web-apps/js-api-home.png" height="550" background=none>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <b>ArcGIS API for JavaScript</b>
 
@@ -107,6 +119,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Desktop browser </span>3D Requirements
 
@@ -120,6 +133,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Mobile browser </span>3D Requirements
 
@@ -132,6 +146,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Data</span> considerations
 
@@ -151,6 +166,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Content </span>for your apps
 
@@ -158,6 +174,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Publish a layer in ArcGIS Pro
 
@@ -165,12 +182,15 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Publish a web scene in ArcGIS Pro
 
 <img class="plain" src="./images/fundamentals-3d-web-apps/publish-pro.png" height=600 background=none>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <b>Web Scene Concept</b>
 
@@ -186,6 +206,8 @@ using the ArcGIS API for JavaScript
 <img class="plain" style="margin-top: 50px" height=185px src="./images/fundamentals-3d-web-apps/platform-webscene.png" background=none>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Coordinate System Support for Scenes
 
@@ -211,6 +233,7 @@ using the ArcGIS API for JavaScript
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <b>Global scenes</b>
 
@@ -220,6 +243,7 @@ Visualize data on a full globe
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Global scenes
 
@@ -230,6 +254,7 @@ Choose one of the geographic coordinate systems:
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### <b>Local scenes</b>
 
@@ -237,9 +262,9 @@ Visualize data in a local planar way
   
 <img class="plain" src="./images/fundamentals-3d-web-apps/localscene.png" height=500 background=none>
 
-
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Local scenes
 
@@ -251,9 +276,7 @@ Clip to your area of interest
 
 ---
 
-
-
-<!-- .slide: data-background="../images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Web scene specification
 
@@ -262,15 +285,7 @@ Clip to your area of interest
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
-
-### ArcGIS Online: 3D Web Scenes
-Thursday, 1:00 pm - 2:00 pm<br/>
-SDCC - Room 15 B
-
----
-
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-3.png" -->
 
 ## <b>Create a 3D App</b>
 
@@ -280,7 +295,7 @@ SDCC - Room 15 B
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Steps
 
@@ -291,6 +306,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Creating basic HTML
 
@@ -302,8 +318,8 @@ SDCC - Room 15 B
       &lt;meta charset=&quot;utf-8&quot;&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.12/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.12/&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
     </code>
     <code style="margin-bottom: -30px;" class="lang-html">
       &lt;title&gt;My first 3D web app&lt;/title&gt;
@@ -339,6 +355,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Load API
 
@@ -350,8 +367,8 @@ SDCC - Room 15 B
       &lt;meta charset=&quot;utf-8&quot;&gt;
     </code>
     <code style="margin-bottom: -30px;" class="lang-html">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.12/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.12/&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
       &lt;title&gt;My first 3D web app&lt;/title&gt;
@@ -387,6 +404,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Load modules...
 
@@ -398,8 +416,8 @@ SDCC - Room 15 B
       &lt;meta charset=&quot;utf-8&quot;&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.12/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.12/&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
       &lt;title&gt;My first 3D web app&lt;/title&gt;
@@ -439,6 +457,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## ... and the Webscene
 
@@ -450,8 +469,8 @@ SDCC - Room 15 B
       &lt;meta charset=&quot;utf-8&quot;&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.12/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.12/&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
       &lt;title&gt;My first 3D web app&lt;/title&gt;
@@ -493,6 +512,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Create the view
 
@@ -504,8 +524,8 @@ SDCC - Room 15 B
       &lt;meta charset=&quot;utf-8&quot;&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.12/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.12/&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
     </code>
     <code style="margin-bottom: -30px;" class="grey">
       &lt;title&gt;My first 3D web app&lt;/title&gt;
@@ -545,6 +565,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Your 3D app is ready to go
 
@@ -559,8 +580,8 @@ SDCC - Room 15 B
       &lt;meta charset=&quot;utf-8&quot;&gt;
     </code>
     <code style="margin-bottom: -30px;" class="lang-html">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.12/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.12/&quot;&gt;&lt;/script&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
     </code>
     <code style="margin-bottom: -30px;" class="lang-html">
       &lt;title&gt;My first 3D web app&lt;/title&gt;
@@ -602,12 +623,13 @@ SDCC - Room 15 B
 
 ---
 
-<!-- .slide: data-background="../images/bg-4.png" -->
+<!-- .slide: data-background="images/bg-3.png" -->
 
 ## <b>Core concepts of the API</b>
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Details about the `Webscene` class
 
@@ -617,6 +639,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Layers
 
@@ -641,6 +664,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Layers
 
@@ -664,6 +688,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Adding a `FeatureLayer`
 
@@ -708,6 +733,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Adding a layer
 
@@ -751,6 +777,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Widgets
 
@@ -764,6 +791,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Adding a widget
 
@@ -806,6 +834,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Adding a widget
 
@@ -846,6 +875,7 @@ SDCC - Room 15 B
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Popups
 
@@ -877,6 +907,7 @@ Open it programmatically:
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Popup templates
 
@@ -909,11 +940,15 @@ Open it programmatically:
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ## Architecture
 <br/>
 <img src="./images/fundamentals-3d-web-apps/concepts-architecture2.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Architecture
 <br/>
@@ -921,12 +956,15 @@ Open it programmatically:
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Architecture
 <br/>
 <img src="./images/fundamentals-3d-web-apps/concepts-architecture.png" width="60%" style="border: none; background: none; box-shadow: none"/>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Working with the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html)
 
@@ -954,6 +992,7 @@ class SceneView {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## [Camera](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html)
 
@@ -977,6 +1016,7 @@ class Camera {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## [Camera](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html)
 
@@ -1006,6 +1046,7 @@ view.camera = camera;
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## [goTo](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#goTo)
 
@@ -1044,6 +1085,7 @@ view.goTo({
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## [toMap](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#toMap)
 
@@ -1073,6 +1115,7 @@ view.on("click", function(event) {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Working with layers
 
@@ -1095,6 +1138,7 @@ class SceneLayer {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Filtering
 
@@ -1131,6 +1175,7 @@ sceneLayer.definitionExpression =
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ## Setting layer style
 
@@ -1181,6 +1226,8 @@ sceneLayer.renderer = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ## [Underground](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html)
 
 <div class="two-columns">
@@ -1212,9 +1259,7 @@ ground.navigationConstraint = {
 
 ---
 
-
-
-<!-- .slide: data-background="./images/bg-1.png" -->
+<!-- .slide: data-background="./images/bg-3.png" -->
 
 ## <b>Feature Highlights & Demos</b> 
 
@@ -1224,6 +1269,7 @@ ground.navigationConstraint = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Client side queries
 
@@ -1231,12 +1277,16 @@ ground.navigationConstraint = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ### Participatory Planning
 <!--#### Draw and create your next neighborhood-->
 
 <iframe id="scene-view-map-view" data-src="https://esri.github.io/participatory-planning"></iframe>
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Building Viewer
 <!--#### Make your BIM data accessible-->
@@ -1247,10 +1297,13 @@ ground.navigationConstraint = {
 
 ---
 
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### There is one more...
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
 
 ### Water
 
@@ -1259,6 +1312,7 @@ ground.navigationConstraint = {
 ---
 
 
+<!-- .slide: data-background="images/bg-3.png" -->
 
 <!--### Thanks for attending-->
 
