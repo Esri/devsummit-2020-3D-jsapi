@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1">
+  <title>Firefly Basemap</title>
+  <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.5/css/calcite-web.min.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://js.arcgis.com/4.15/"></script>
+  <script src="app/main.js"></script>
+</head>
+
+<body>
+  <div id="viewDiv">
+    <button id="cameraOne" class="btn btn-white hide" title="Camera One">
+      Hotel
+    </button>
+    <button id="cameraTwo" class="btn btn-white hide" title="Camera Two">
+      Church
+    </button>
+
+    <div id="lineMeasurement" class="esri-widget--button esri-interactive esri-component hide" role="button" title="Line Measurement">
+      <span class="esri-icon-measure-line"></span>
+    </div>
+    <div id="areaMeasurement" class="esri-widget--button esri-interactive esri-component hide" role="button" title="Area Measurement">
+      <span class="esri-icon-measure-area"></span>
+    </div>
+  </div>
+
+</body>
+
+</html>
