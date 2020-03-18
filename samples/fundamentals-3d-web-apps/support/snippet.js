@@ -10,7 +10,7 @@ function create(tag, attr) {
 
 document.head.appendChild(create("link", {
   rel: "stylesheet",
-  href: "//js.arcgis.com/4.12/esri/css/main.css"
+  href: "//js.arcgis.com/4.15/esri/css/main.css"
 }));
 
 document.head.appendChild(create("link", {
@@ -19,7 +19,7 @@ document.head.appendChild(create("link", {
 }));
 
 document.head.appendChild(create("script", {
-  src: "//js.arcgis.com/4.12/"
+  src: "//js.arcgis.com/4.15/"
 }));
 
 (function(snippet, settings) {
