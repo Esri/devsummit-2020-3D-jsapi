@@ -30,25 +30,6 @@ using the ArcGIS API for JavaScript
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### <b> 3D GIS <span style="color:#D9BA6F">across industries</span></b>
-
-<img class="plain" src="./images/fundamentals-3d-web-apps/3d-gis-industries-2019.png" width="80%" style="border: none; background: none; box-shadow: none"/>
-
-
-<!--
-<br/>
-
-<div class="box" style="display:inline-block; width:650px">
-<iframe id="scene-view-map-view" data-src="https://www.arcgis.com/home/webscene/viewer.html?webscene=c5b58fa63714412eb0eea933a130ebdf&ui=min" align=left></iframe></div>
-<div class="box" style="display:inline-block; width:50px"></div>
-<div class="box" style="display:inline-block; width:650px">
-<iframe id="scene-view-map-view" data-src="https://www.arcgis.com/home/webscene/viewer.html?webscene=43e1b988e55a44fdad6c5cf58c34dbda&ui=min"></iframe></div>
--->
-
----
-
 <!-- .slide: data-background="images/bg-3.png" -->
 ### <b>Agenda</b>
 - 3D Platform | Data | API | WebScene
@@ -128,7 +109,9 @@ using the ArcGIS API for JavaScript
   - Chrome
   - Firefox
   - Safari
-  - Edge / Internet Explorer 11\* (\*WebGL not optimized)
+  - Edge
+<br>  
+<small>Internet Explorer 11 is not recommended</small>
 
 
 ---
@@ -137,12 +120,11 @@ using the ArcGIS API for JavaScript
 
 ### <span style="color:#D9BA6F">Mobile browser </span>3D Requirements
 
-- Mobile support introduced last year
-- Officially supported for the following devices
-  - iOS — iPhone 8/XS, iPad Pro (Safari)
+- Officially supported devices
+  - iOS — iPhone 8/XS/11, iPad Pro (Safari)
   - Android — Samsung S8/S9/S10, Tab S3/S4 (Chrome)
 
-   <span style="font-size: 75%">*Other devices/browser may work, but use modern devices with > 2GB memory</span>
+   <span style="font-size: 75%">*Other devices/browsers may work, use modern devices with > 2GB memory</span>
 
 ---
 
@@ -237,7 +219,7 @@ using the ArcGIS API for JavaScript
 
 ### <b>Global scenes</b>
 
-Visualize data on a full globe
+Visualize data on the globe
 
 <img class="plain" src="./images/fundamentals-3d-web-apps/globalscene.png" height=500 background=none>
 
@@ -310,7 +292,7 @@ Clip to your area of interest
 
 ## Creating basic HTML
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 600px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="lang-html">
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
@@ -359,7 +341,7 @@ Clip to your area of interest
 
 ## Load API
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 600px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
@@ -406,9 +388,9 @@ Clip to your area of interest
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Load modules...
+## Load modules
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 600px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
@@ -459,9 +441,9 @@ Clip to your area of interest
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## ... and the Webscene
+## Load the Webscene
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 600px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
@@ -516,7 +498,7 @@ Clip to your area of interest
 
 ## Create the view
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 600px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
