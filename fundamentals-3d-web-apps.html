@@ -49,23 +49,6 @@ using the ArcGIS API for JavaScript
   - [Web AppBuilder](https://www.esri.com/en-us/arcgis/products/web-appbuilder/overview)
 -->
 </script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### <b> 3D GIS <span style="color:#D9BA6F">across industries</span></b>
-
-<img class="plain" src="./images/fundamentals-3d-web-apps/3d-gis-industries-2019.png" width="80%" style="border: none; background: none; box-shadow: none"/>
-
-
-<!--
-<br/>
-
-<div class="box" style="display:inline-block; width:650px">
-<iframe id="scene-view-map-view" data-src="https://www.arcgis.com/home/webscene/viewer.html?webscene=c5b58fa63714412eb0eea933a130ebdf&ui=min" align=left></iframe></div>
-<div class="box" style="display:inline-block; width:50px"></div>
-<div class="box" style="display:inline-block; width:650px">
-<iframe id="scene-view-map-view" data-src="https://www.arcgis.com/home/webscene/viewer.html?webscene=43e1b988e55a44fdad6c5cf58c34dbda&ui=min"></iframe></div>
--->
-</script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-3.png" -->
 ### <b>Agenda</b>
 - 3D Platform | Data | API | WebScene
@@ -131,19 +114,20 @@ using the ArcGIS API for JavaScript
   - Chrome
   - Firefox
   - Safari
-  - Edge / Internet Explorer 11\* (\*WebGL not optimized)
+  - Edge
+<br>  
+<small>Internet Explorer 11 is not recommended</small>
 
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ### <span style="color:#D9BA6F">Mobile browser </span>3D Requirements
 
-- Mobile support introduced last year
-- Officially supported for the following devices
-  - iOS — iPhone 8/XS, iPad Pro (Safari)
+- Officially supported devices
+  - iOS — iPhone 8/XS/11, iPad Pro (Safari)
   - Android — Samsung S8/S9/S10, Tab S3/S4 (Chrome)
 
-   <span style="font-size: 75%">*Other devices/browser may work, but use modern devices with > 2GB memory</span>
+   <span style="font-size: 75%">*Other devices/browsers may work, use modern devices with > 2GB memory</span>
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
@@ -224,7 +208,7 @@ using the ArcGIS API for JavaScript
 
 ### <b>Global scenes</b>
 
-Visualize data on a full globe
+Visualize data on the globe
 
 <img class="plain" src="./images/fundamentals-3d-web-apps/globalscene.png" height=500 background=none>
 </script></section><section  data-markdown><script type="text/template">
@@ -283,45 +267,45 @@ Clip to your area of interest
 
 ## Creating basic HTML
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 700px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="lang-html">
-    &lt;!DOCTYPE html&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset=&quot;utf-8&quot;&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-html">
-      &lt;title&gt;My first 3D web app&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView) {
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-html">
+    &lt;title&gt;My first 3D web app&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(WebScene, SceneView) {
+        var scene = new WebScene({
+          portalItem: {
+            id: "69af87076d884670995217536d60f150"
+          }
         });
-    </code>
-    <code class="lang-html">
-      &lt;/script&gt;
-      &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+        var view = new SceneView({
+          container: "viewDiv",
+          map: scene
+        });
+      });
+  </code>
+  <code class="lang-html">
+    &lt;/script&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
     </code></pre>
 </div>
 
@@ -330,150 +314,150 @@ Clip to your area of interest
 
 ## Load API
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 700px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
-    &lt;!DOCTYPE html&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset=&quot;utf-8&quot;&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-html">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;title&gt;My first 3D web app&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView) {
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-html">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;title&gt;My first 3D web app&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(WebScene, SceneView) {
+        var scene = new WebScene({
+          portalItem: {
+            id: "69af87076d884670995217536d60f150"
+          }
         });
-    </code>
-    <code class="grey">
-      &lt;/script&gt;
-      &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+        var view = new SceneView({
+          container: "viewDiv",
+          map: scene
+        });
+      });
+  </code>
+  <code class="grey">
+    &lt;/script&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
     </code></pre>
     </div>
 
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Load modules...
+## Load modules
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 700px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
-    &lt;!DOCTYPE html&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset=&quot;utf-8&quot;&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;title&gt;My first 3D web app&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-js">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView) {
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-js">
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;title&gt;My first 3D web app&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-js">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(WebScene, SceneView) {
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+        var scene = new WebScene({
+          portalItem: {
+            id: "69af87076d884670995217536d60f150"
+          }
         });
-    </code>
-    <code class="grey">
-      &lt;/script&gt;
-      &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+        var view = new SceneView({
+          container: "viewDiv",
+          map: scene
+        });
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-js">
+      });
+  </code>
+  <code class="grey">
+    &lt;/script&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
     </code></pre>
     </div>
 
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## ... and the Webscene
+## Load the Webscene
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 700px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
-    &lt;!DOCTYPE html&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset=&quot;utf-8&quot;&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;title&gt;My first 3D web app&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView) {
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-js">
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;title&gt;My first 3D web app&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(WebScene, SceneView) {
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-js">
+        var scene = new WebScene({
+          portalItem: {
+            id: "69af87076d884670995217536d60f150"
+          }
         });
-    </code>
-    <code class="grey">
-      &lt;/script&gt;
-      &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+        var view = new SceneView({
+          container: "viewDiv",
+          map: scene
+        });
+      });
+  </code>
+  <code class="grey">
+    &lt;/script&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
     </code></pre>
 </div>
-<p class="fragment" data-fragment-index="1" style="position: absolute; top: 100px; max-width: 800px; margin-left: -50%; left: 75%;">
+<p class="fragment" data-fragment-index="1" style="position: absolute; top: 100px; max-width: 800px; margin-left: -50%; left: 70%;">
   <img src="./images/fundamentals-3d-web-apps/webscene-portalitem.png" alt="">
 </p>
 </script></section><section  data-markdown><script type="text/template">
@@ -481,99 +465,100 @@ Clip to your area of interest
 
 ## Create the view
 
-<div class="code-snippet" style="max-width: 600px; font-size: 130%; float: none; margin: auto;">
+<div class="code-snippet" style="max-width: 700px; font-size: 115%; float: none; margin: auto;">
     <pre><code style="margin-bottom: -30px;" class="grey">
-    &lt;!DOCTYPE html&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset=&quot;utf-8&quot;&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-      &lt;title&gt;My first 3D web app&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView) {
-    </code>
-    <code style="margin-bottom: -30px;" class="grey">
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-js">
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
-    </code>
-    <code class="grey">
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+    &lt;title&gt;My first 3D web app&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(WebScene, SceneView) {
+  </code>
+  <code style="margin-bottom: -30px;" class="grey">
+        var scene = new WebScene({
+          portalItem: {
+            id: "69af87076d884670995217536d60f150"
+          }
         });
-      &lt;/script&gt;
-      &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-js">
+        var view = new SceneView({
+          container: "viewDiv",
+          map: scene
+        });
+  </code>
+  <code class="grey">
+      });
+    &lt;/script&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
     </code></pre>
     </div>
 
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Your 3D app is ready to go
+### Your 3D app is ready to go
 
 <div class="two-columns">
   <div class="left-column">
 
 <div class="code-snippet">
     <pre><code style="margin-bottom: -30px;" class="lang-html">
-    &lt;!DOCTYPE html&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-      &lt;meta charset=&quot;utf-8&quot;&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-html">
-      &lt;link rel=&quot;stylesheet&quot; href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
-      &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-html">
-      &lt;title&gt;My first 3D web app&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;script&gt;
-    </code>
-    <code style="margin-bottom: -30px;" class="lang-js">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView) {
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-html">
+    &lt;link rel=&quot;stylesheet&quot; 
+          href=&quot;//js.arcgis.com/4.15/esri/css/main.css&quot;&gt;
+    &lt;script src=&quot;//js.arcgis.com/4.15/&quot;&gt;&lt;/script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-html">
+    &lt;title&gt;My first 3D web app&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+  </code>
+  <code style="margin-bottom: -30px;" class="lang-js">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "dojo/domReady!"
+      ], function(WebScene, SceneView) {
+        var scene = new WebScene({
+          portalItem: {
+            id: "69af87076d884670995217536d60f150"
+          }
         });
-    </code>
-    <code class="lang-html">
-      &lt;/script&gt;
-      &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+        var view = new SceneView({
+          container: "viewDiv",
+          map: scene
+        });
+      });
+  </code>
+  <code class="lang-html">
+    &lt;/script&gt;
+    &lt;div id=&quot;viewDiv&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
     </code></pre>
     </div>
 
@@ -625,7 +610,7 @@ Clip to your area of interest
 
 |              |  |
 |--------------|--|
-| <div style="font-size: 300%; background: rgba(27, 75, 127, 0.55); position: absolute;">`FeatureLayer`</div> | <small>2D & 3D</small> |
+| <div style="font-size: 300%; background: rgba(22, 34, 147); position: absolute;">`FeatureLayer`</div> | <small>2D & 3D</small> |
 | `CSVLayer` | <small>2D & 3D</small> |
 | `StreamLayer` | <small>2D & 3D</small> |
 | `MapImageLayer` | <small>2D & 3D</small> |
@@ -647,40 +632,40 @@ Clip to your area of interest
 
 <div class="code-snippet" style="font-size: 140%; max-width: 600px; float: none; margin: auto;">
     <pre><code style="margin-bottom: -40px;" class="grey">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-    </code>
-    <code style="margin-bottom: -40px;" class="lang-js">
-          "esri/layers/FeatureLayer",
-    </code>
-    <code style="margin-bottom: -40px;" class="grey">
-          "dojo/domReady!"
-    </code>
-    <code style="margin-bottom: -40px;" class="lang-js">
-        ], function(WebScene, SceneView, FeatureLayer) {
-    </code>
-    <code style="margin-bottom: -40px;" class="grey">
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
-    </code>
-    <code style="margin-bottom: -40px;" class="lang-js">
-          var layer = new FeatureLayer({
-            portalItem: {
-              id: "a38c0bd41aad41d89ab2a31050ff07b1"
-            }
-          });
-          scene.add(layer);
-    </code>
-    <code class="grey">
-        });
+  require([
+    "esri/WebScene",
+    "esri/views/SceneView",
+  </code>
+  <code style="margin-bottom: -40px;" class="lang-js">
+    "esri/layers/FeatureLayer",
+  </code>
+  <code style="margin-bottom: -40px;" class="grey">
+    "dojo/domReady!"
+  </code>
+  <code style="margin-bottom: -40px;" class="lang-js">
+  ], function(WebScene, SceneView, FeatureLayer) {
+  </code>
+  <code style="margin-bottom: -40px;" class="grey">
+    var scene = new WebScene({
+      portalItem: {
+        id: "69af87076d884670995217536d60f150"
+      }
+    });
+    var view = new SceneView({
+      container: "viewDiv",
+      map: scene
+    });
+  </code>
+  <code style="margin-bottom: -40px;" class="lang-js">
+    var layer = new FeatureLayer({
+      portalItem: {
+        id: "a38c0bd41aad41d89ab2a31050ff07b1"
+      }
+    });
+    scene.add(layer);
+  </code>
+  <code class="grey">
+  });
     </code></pre>
     </div>
 </script></section><section  data-markdown><script type="text/template">
@@ -691,30 +676,30 @@ Clip to your area of interest
 <div class="two-columns">
   <div class="left-column">
 
-<div class="code-snippet" style="font-size: 140%;">
+<div class="code-snippet" style="font-size: 120%;">
     <pre><code class="lang-js">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "esri/layers/FeatureLayer",
-          "dojo/domReady!"
-        ], function(WebScene, SceneView, FeatureLayer) {
-          var scene = new WebScene({
-            portalItem: {
-              id: "69af87076d884670995217536d60f150"
-            }
-          });
-          var view = new SceneView({
-            container: "viewDiv",
-            map: scene
-          });
-          var layer = new FeatureLayer({
-            portalItem: {
-              id: "a38c0bd41aad41d89ab2a31050ff07b1"
-            }
-          });
-          scene.add(layer);
-        });
+  require([
+    "esri/WebScene",
+    "esri/views/SceneView",
+    "esri/layers/FeatureLayer",
+    "dojo/domReady!"
+  ], function(WebScene, SceneView, FeatureLayer) {
+    var scene = new WebScene({
+      portalItem: {
+        id: "69af87076d884670995217536d60f150"
+      }
+    });
+    var view = new SceneView({
+      container: "viewDiv",
+      map: scene
+    });
+    var layer = new FeatureLayer({
+      portalItem: {
+        id: "a38c0bd41aad41d89ab2a31050ff07b1"
+      }
+    });
+    scene.add(layer);
+  });
     </code></pre>
     </div>
 
@@ -745,36 +730,36 @@ Clip to your area of interest
 
 <div class="code-snippet" style="font-size: 140%;max-width: 600px; float: none; margin: auto;">
     <pre><code style="margin-bottom: -40px;" class="grey">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "esri/layers/FeatureLayer",
-    </code>
-    <code style="margin-bottom: -40px;" class="lang-js">
-          "esri/widgets/Search",
-    </code>
-    <code style="margin-bottom: -40px;" class="grey">
-          "dojo/domReady!"
-        ], function(
-          WebScene, 
-          SceneView, 
-          FeatureLayer,
-    </code>
-    <code style="margin-bottom: -40px;" class="lang-js">
-          Search
-        ) {
-          // ...
-    </code>
-    <code style="margin-bottom: -40px;" class="lang-js">
-          var searchWidget = new Search({
-            view: view
-          });
-          view.ui.add(searchWidget, {
-            position: "top-right"
-          });
-    </code>
-    <code class="grey">
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "esri/layers/FeatureLayer",
+  </code>
+  <code style="margin-bottom: -40px;" class="lang-js">
+        "esri/widgets/Search",
+  </code>
+  <code style="margin-bottom: -40px;" class="grey">
+        "dojo/domReady!"
+      ], function(
+        WebScene, 
+        SceneView, 
+        FeatureLayer,
+  </code>
+  <code style="margin-bottom: -40px;" class="lang-js">
+        Search
+      ) {
+        // ...
+  </code>
+  <code style="margin-bottom: -40px;" class="lang-js">
+        var searchWidget = new Search({
+          view: view
         });
+        view.ui.add(searchWidget, {
+          position: "top-right"
+        });
+  </code>
+  <code class="grey">
+      });
     </code></pre>
     </div>
 
@@ -788,26 +773,26 @@ Clip to your area of interest
 
 <div class="code-snippet" style="font-size: 140%;">
     <pre><code class="lang-js">
-        require([
-          "esri/WebScene",
-          "esri/views/SceneView",
-          "esri/layers/FeatureLayer",
-          "esri/widgets/Search",
-          "dojo/domReady!"
-        ], function(
-          WebScene, 
-          SceneView, 
-          FeatureLayer,
-          Search
-        ) {
-          // ...
-          var searchWidget = new Search({
-            view: view
-          });
-          view.ui.add(searchWidget, {
-            position: "top-right"
-          });
-        });
+    require([
+      "esri/WebScene",
+      "esri/views/SceneView",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Search",
+      "dojo/domReady!"
+    ], function(
+      WebScene, 
+      SceneView, 
+      FeatureLayer,
+      Search
+    ) {
+      // ...
+      var searchWidget = new Search({
+        view: view
+      });
+      view.ui.add(searchWidget, {
+        position: "top-right"
+      });
+    });
     </code></pre>
     </div>
 
@@ -827,7 +812,7 @@ Clip to your area of interest
 <div>
 Open it programmatically:
 </div>
-      <div class="code-snippet" style="font-size: 120%;margin-top: 30px;">
+      <div class="code-snippet" style="font-size: 140%;margin-top: 30px;">
         <pre><code class="lang-js">
   view.on("click", function(event) {
     event.stopPropagation();
@@ -855,15 +840,15 @@ Open it programmatically:
 <div class="two-columns">
   <div class="left-column">
 <div>Enable on a layer:</div>
-  <div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
-    <pre><code class="lang-js" style="margin-bottom: 20px;">
+  <div class="code-snippet" style="font-size: 135%;margin-top: 20px;">
+    <pre style="padding: 0.5em;"><code class="lang-js" style="margin-bottom: 20px;">
   layer.popupEnabled = true;
 </code></pre></div>
 
 <br><br>
 <div>Configure popup:</div>
-    <div class="code-snippet" style="font-size: 130%;">
-      <pre><code class="lang-js">
+    <div class="code-snippet" style="font-size: 135%;">
+      <pre style="padding: 0.5em;"><code class="lang-js">
   var template = {
     title: "Building <b>{NAME}</b>",
     content: "This build has an enery consumption<br/>"
@@ -901,25 +886,25 @@ Open it programmatically:
 
 ## Working with the [SceneView](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html)
 
-<div class="code-snippet" style="font-size: 160%; ">
+<div class="code-snippet"  style="max-width: 700px; font-size: 140%; float: none; margin: auto;">
   <pre><code class="lang-ts">
-class SceneView {
-  // Camera specifies the view
-  camera: Camera;
-  </code>
-  <code class="lang-ts">
-  // Animations, framing
-  goTo(...);
-  </code>
-  <code class="lang-ts">
-  // Finding graphics at screen locations
-  hitTest(...);
-  </code>
-  <code class="lang-ts">
-  // Converting coordinate systems
-  toScreen(mapPoint: Point): ScreenPoint;
-  toMap(screenPoint: ScreenPoint): Point;
-}
+  class SceneView {
+    // Camera specifies the view
+    camera: Camera;
+    </code>
+    <code class="lang-ts">
+    // Animations, framing
+    goTo(...);
+    </code>
+    <code class="lang-ts">
+    // Finding graphics at screen locations
+    hitTest(...);
+    </code>
+    <code class="lang-ts">
+    // Converting coordinate systems
+    toScreen(mapPoint: Point): ScreenPoint;
+    toMap(screenPoint: ScreenPoint): Point;
+  }
   </code></pre>
 </div>
 </script></section><section  data-markdown><script type="text/template">
@@ -930,8 +915,8 @@ class SceneView {
 - Primary specification of the view is the [`Camera`](https://developers.arcgis.com/javascript/beta/api-reference/esri-Camera.html)
 
 
-<div class="code-snippet" style="font-size: 160%;">
-  <pre><code class="lang-ts">
+<div class="code-snippet" style="max-width: 800px; font-size: 140%; float: none; margin: auto;">
+  <pre ><code class="lang-ts">
 class Camera {
   // The position of the camera eye in 3D space (x, y + z elevation)
   position: Point;
@@ -952,9 +937,9 @@ class Camera {
 <div class="two-columns">
   <div class="left-column">
 
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="font-size: 130%;">
 <button class="play" id="scene-view-camera-button01"></button>
-<pre><code class="lang-ts">
+<pre ><code class="lang-ts">
 const camera = view.camera.clone();
 </code><code class="lang-ts">
 // Increment the heading of the camera by 5 degrees
@@ -962,7 +947,6 @@ camera.heading += 5;
 </code><code class="lang-ts">
 // Set the modified camera on the view
 view.camera = camera;
-
 </code></pre>
 </div>
 
@@ -980,28 +964,29 @@ view.camera = camera;
 <div class="two-columns">
   <div class="left-column">
 
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="font-size: 140%;">
 <button class="play" id="scene-view-go-to-button01"></button>
-<pre><code class="lang-ts">// target heading = current heading + 30
-var newHeading = view.camera.heading + 30;
-
-// go to heading preserves view.center
-view.goTo({
-    heading: newHeading
-},{ 
-    speedFactor: 0.5 
-});</code></pre>
+<pre><code class="lang-ts">
+  // target heading = current heading + 30
+  var newHeading = view.camera.heading + 30;
+</code><code class="lang-ts">
+  // go to heading preserves view.center 
+  view.goTo({
+      heading: newHeading
+  },{ 
+      speedFactor: 0.5 
+  });</code></pre>
 </div>
 
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="font-size: 140%;">
 <button class="play" id="scene-view-go-to-button02"></button>
-<pre><code class="lang-ts">// coordinates (lon, lat) of Mount Fuji
-var newCenter = [138.729050, 35.360638];
-
-view.goTo({
-   center: newCenter,
-   zoom: 13
-});</code></pre>
+<pre><code class="lang-ts">
+  // coordinates (lon, lat) of Mount Fuji
+  var newCenter = [138.729050, 35.360638];
+  view.goTo({
+    center: newCenter,
+    zoom: 13
+  });</code></pre>
 </div>
 
   </div>
@@ -1017,8 +1002,8 @@ view.goTo({
 <div class="two-columns">
   <div class="left-column">
 
-<div class="code-snippet small" style="font-size: 160%;">
-<pre><code class="lang-js">// Every time the user clicks on the map...
+<div class="code-snippet" style="font-size: 130%;">
+<pre><code class="lang-js" >// Every time the user clicks on the map...
 view.on("click", function(event) {
 </code><code class="lang-js">
   // convert the screen position to map coordinates
@@ -1042,7 +1027,7 @@ view.on("click", function(event) {
 
 ## Working with layers
 
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="max-width: 800px; font-size: 140%; float: none; margin: auto;">
   <pre><code class="lang-ts">
 class SceneLayer {
   // Filtering 
@@ -1065,7 +1050,7 @@ class SceneLayer {
 
 <div class="two-columns">
   <div class="left-column">
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="font-size: 140%;">
 <button class="play" id="mesh-filtering-button01"></button>
 <pre><code class="lang-js">// only show buildings constructed before 1900
 sceneLayer.definitionExpression =
@@ -1073,14 +1058,14 @@ sceneLayer.definitionExpression =
 </code></pre>
 </div>
 
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="font-size: 140%;">
 <button class="play" id="mesh-filtering-button03"></button>
 <pre><code class="lang-js">// reset filter
 sceneLayer.definitionExpression = null;
 </code></pre>
 </div>
 
-<div class="code-snippet" style="font-size: 160%;">
+<div class="code-snippet" style="font-size: 140%;">
 <button class="play" id="mesh-filtering-button02"></button>
 <pre><code class="lang-js">// only show tall buildings
 sceneLayer.definitionExpression =
@@ -1096,11 +1081,11 @@ sceneLayer.definitionExpression =
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Setting layer style
+### Setting layer style
 
 <div class="two-columns">
   <div class="left-column">
-<div class="code-snippet" style="font-size: 130%;">
+<div class="code-snippet" style="font-size: 120%;">
 <button class="play" id="mesh-renderer-button01"></button>
 <pre><code class="lang-js">// draw buildings in transparent green
 sceneLayer.renderer = {
@@ -1118,7 +1103,7 @@ sceneLayer.renderer = {
 </code></pre>
 </div>
 
-<div class="code-snippet" style="font-size: 130%;">
+<div class="code-snippet" style="font-size: 120%;">
 <button class="play" id="mesh-renderer-button02"></button>
 <pre><code class="lang-js">// color buildings by construction year
 sceneLayer.renderer = {
@@ -1151,9 +1136,8 @@ sceneLayer.renderer = {
   <div class="left-column">
 <div class="code-snippet" style="font-size: 130%;">
 <button class="play" id="underground-button01"></button>
-<pre><code class="lang-js">// Ground object is part of Map/WebScene
-var ground = webScene.ground;
-
+<pre><code class="lang-ts">// Ground object is part of Map/WebScene
+const ground = webScene.ground;</code><code class="lang-ts">
 // Set ground to 50% transparent
 ground.opacity = 0.5;
 </code></pre>
@@ -1161,7 +1145,7 @@ ground.opacity = 0.5;
 
 <div class="code-snippet" style="font-size: 130%;">
 <button class="play" id="underground-button02"></button>
-<pre><code class="lang-js">// allow camera to go underground
+<pre><code class="lang-ts">// allow camera to go underground
 ground.navigationConstraint = {
   type: "none"
 };
