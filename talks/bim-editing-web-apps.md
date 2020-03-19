@@ -22,36 +22,54 @@ https://esri.github.io/devsummit-2020-3D-jsapi
 
 ## Agenda
 
-- Visualizing BIM Models
-- Interactive Tools
-- Feature Layer Editing
+- Visualizing BIM models
+- Interactive tools
+- Feature layer editing
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## 3D BIM Models in the Browser
+## 3D BIM models in the browser
+
+<div class="two-columns">
+  <div class="left-column">
+
+![BIM Model in Scene Viewer](./images/bim-editing/bim-model.png)
+
+  </div>
+  <div class="right-column">
+
 
 * Share with anyone <!-- .element class="fragment" -->
 * Intuitive to use through web apps <!-- .element class="fragment" -->
 * Broad device support thanks to WebGL <!-- .element class="fragment" -->
 
+
+  </div>
+</div>
+
+
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Building Scene Layer
+## Import BIM models
 
-![Revit to ArcGIS Platform](./images/bim-editing/revit.png)
+<div class="fragment">
 
-[Online Resources](https://pro.arcgis.com/en/pro-app/help/data/revit/)
+![Revit to ArcGIS platform](./images/bim-editing/revit.png)
+
+[Online resources](https://pro.arcgis.com/en/pro-app/help/data/revit/)
+
+</div>
 
 ---
 
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## i3s Specification
+## i3s BuildingSceneLayer
 
 https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
@@ -66,13 +84,13 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Visualizing BIM Models
+## Visualizing BIM models
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### BuildingSceneLayer Item
+<!-- ### Example Building Scene Layer -->
 
 <a href="https://www.arcgis.com/home/item.html?id=64f68adf72474330b195ba2718a8d3e0" target="_blank">
 
@@ -84,7 +102,7 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-load-bsl"  -->
 
-## Load BIM Model
+## Load BIM model
 
 <div class="two-columns">
   <div class="left-column">
@@ -186,7 +204,7 @@ windowLayer.renderer = new SimpleRenderer({
 
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-filter-blocks" -->
 
-## Attribute Filter
+## Attribute filter
 
 <div class="two-columns">
   <div class="left-column">
@@ -226,7 +244,7 @@ buildingLayer.activeFilterId = buildingFilter.id;
 
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-filter-modes" -->
 
-## Filter Modes
+## Filter modes
 
 <div class="two-columns">
   <div class="left-column">
@@ -273,7 +291,7 @@ buildingFilter.filterBlocks.add({
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Interactive Tools
+## Interactive tools
 
 ---
 
@@ -322,7 +340,7 @@ view.ui.add(daylight, {
 
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-slice-measurements" -->
 
-## Slice & Measurements
+## Slice & measurements
 
 <div class="two-columns">
   <div class="left-column">
@@ -374,7 +392,7 @@ measurement.startMeasurement();
 
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-line-of-sight" -->
 
-## Line of Sight
+## Line of sight
 
 <div class="two-columns">
   <div class="left-column">
@@ -400,7 +418,7 @@ view.ui.add(lineOfSight, "top-right");
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-## Feature Layer Editing
+## Feature layer editing
 
 
 
