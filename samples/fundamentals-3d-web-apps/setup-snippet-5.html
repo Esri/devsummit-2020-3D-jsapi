@@ -1,0 +1,50 @@
+<script>
+  function snippet(containers, interlinks) {
+    require([
+      "esri/WebScene",
+      "esri/views/SceneView",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Search",
+      "dojo/domReady!"
+    ], function(WebScene, SceneView, FeatureLayer, Search) {
+      var scene = new WebScene({
+        portalItem: {
+          id: "69af87076d884670995217536d60f150"
+        }
+      });
+      var view = new SceneView({
+        container: "viewDiv",
+        map: scene,
+        camera: {
+          position: [-74.0338, 40.6913, 707],
+          tilt: 81,
+          heading: 50
+        }
+      });
+      scene.when(function() {
+        scene.layers.forEach((layer) => {
+          layer.popupEnabled = false;
+        });
+      });
+
+      var searchWidget = new Search({
+        view: view
+      });
+      view.ui.add(searchWidget, {
+        position: "top-right"
+      });
+      var num = 0;
+      view.on("click", function(event) {
+        event.stopPropagation();
+        var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
+        var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
+        view.popup.open({
+          title: "Reverse geocode: [" + lon + ", " + lat + "]",
+          location: event.mapPoint
+        });
+      });
+    });
+  }
+</script>
+
+<script src="./support/snippet.js"></script>
