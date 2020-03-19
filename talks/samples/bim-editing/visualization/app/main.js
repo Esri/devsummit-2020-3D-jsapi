@@ -53,6 +53,7 @@ require([
 
   view.when().then(function() {
     map.ground.opacity = 0;
+    view.constraints.clipDistance.near = 1;
   });
 
   function onClick(buttonId, onclick) {
