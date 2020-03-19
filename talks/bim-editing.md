@@ -34,6 +34,17 @@ Arno Fiva, Esri R&D Center Zürich
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
+## Building Scene Layer
+
+![Revit to ArcGIS Platform](./images/bim-editing/revit.png)
+
+[Online Resources](https://pro.arcgis.com/en/pro-app/help/data/revit/)
+
+---
+
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
 ## i3s Specification
 
 https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
@@ -65,9 +76,9 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-load-bsl"  -->
 
-## Load BuildingSceneLayer
+## Load BIM model
 
 <div class="two-columns">
   <div class="left-column">
@@ -87,68 +98,24 @@ const buildingLayer = new BuildingSceneLayer({
 map.add(buildingLayer);
 ```
 
-```ts
-// Load using service URL
-const buildingLayer = new BuildingSceneLayer({
-  url: "https://tiles.arcgis.com/.../services/" +
-   "Admin_Building_v17/SceneServer"
-});
-
-// Add to scene
-map.add(buildingLayer);
-```
-
-</div>
-
-
-  </div>
-  <div class="right-column">
-    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
-  </div>
-</div>
-
-
----
-
-<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-sublayers" -->
-
-## Sublayers
-
-<div class="two-columns">
-  <div class="left-column">
-
-<div class="code-snippet">
+<div class="code-snippet fragment">
 <button class="play" id="filterBuildingSceneLayer"></button>
 
 ```ts
 // Iterate through all sublayers
-buildingLayer.allSublayers.forEach(l => {
+buildingLayer.allSublayers.forEach(subLayer => {
 
-  if (l.title === "Floors" || l.startWith("Structural")) {
-    l.visible = true;
+
+  const name = subLayer.modelName;
+  if (name === "Floors" || name.startsWith("Structural")) {
+    subLayer.visible = true;
   } else {
-    l.visible = l.type === "building-group";
+    subLayer.visible = subLayer.type === "building-group"
   }
 });
 ```
 
-<div class="fragment">
-
-```ts
-// Exterior shell (simplified, no interior details)
-const shell = buildingLayer.allSublayers.filter(l =>
-  l.modelName === "Overview"
-);
-
-// Group layer containing all detailed model
-const fullModel = buildingLayer.allSublayers.filter(l =>
-  l.modelName === "Overview"
-);
-
-```
-
 [i3s model names](https://github.com/Esri/i3s-spec/blob/master/docs/1.7/subLayerModelName.md)
-
 </div>
 
 </div>
