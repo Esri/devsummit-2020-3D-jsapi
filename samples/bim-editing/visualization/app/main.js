@@ -53,6 +53,7 @@ require([
 
   view.when().then(function() {
     map.ground.opacity = 0;
+    view.constraints.clipDistance.near = 1;
   });
 
   function onClick(buttonId, onclick) {
@@ -64,6 +65,16 @@ require([
 
   function addBSL() {
     map.add(buildingLayer);
+
+    bslLoad.then(() => {
+      buildingLayer.allSublayers.forEach(l => {
+        if (l.type === "building-group") {
+          l.visible = true;
+        } else if (l.modelName === "Overview") {
+          l.visible = false;
+        }
+      });
+    });
   }
 
   function addLayerList() {
@@ -192,8 +203,7 @@ require([
 
   // Check what slide we are showing
   const slide = parent && parent.Reveal && parent.Reveal.getCurrentSlide().dataset.title;
-  if (slide === "slide-bsl-sublayers") {
-    addBSL();
+  if (slide === "slide-load-bsl") {
     addLayerList();
   } else if (slide === "slide-bsl-renderer") {
     addBSL();

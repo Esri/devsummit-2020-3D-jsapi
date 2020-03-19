@@ -37,18 +37,27 @@ Arno Fiva, Esri R&D Center Zürich
 
 ## Agenda
 
-- Visualization
+- Visualizing BIM Models
 - Interactive Tools
-- Editing
+- Feature Layer Editing
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## 3D BIM data in the browser
+## 3D BIM Models in the Browser
 
-* Intuitive <!-- .element class="fragment" -->
-* Share with anyone <!-- .element class="fragment" -->
-* Device support, no additional software required <!-- .element class="fragment" -->
+* Share with anyone
+* Intuitive to use through web apps <!-- .element class="fragment" -->
+* Broad device support thanks to WebGL <!-- .element class="fragment" -->
 </script></section><section  data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Building Scene Layer
+
+![Revit to ArcGIS Platform](./images/bim-editing/revit.png)
+
+[Online Resources](https://pro.arcgis.com/en/pro-app/help/data/revit/)
+</script></section><section  data-markdown><script type="text/template">
+
 <!-- .slide: data-background="images/bg-2.png" -->
 
 ## i3s Specification
@@ -64,7 +73,7 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Visualizations
+# Visualizing BIM Models
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-2.png" -->
 
@@ -76,9 +85,9 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 </a>
 </script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-2.png" data-title="slide-load-bsl"  -->
 
-## Load BuildingSceneLayer
+## Load BIM Model
 
 <div class="two-columns">
   <div class="left-column">
@@ -98,66 +107,24 @@ const buildingLayer = new BuildingSceneLayer({
 map.add(buildingLayer);
 ```
 
-```ts
-// Load using service URL
-const buildingLayer = new BuildingSceneLayer({
-  url: "https://tiles.arcgis.com/.../services/" +
-   "Admin_Building_v17/SceneServer"
-});
-
-// Add to scene
-map.add(buildingLayer);
-```
-
-</div>
-
-
-  </div>
-  <div class="right-column">
-    <iframe data-src="./samples/bim-editing/visualization/" ></iframe>
-  </div>
-</div>
-
-</script></section><section  data-markdown><script type="text/template">
-<!-- .slide: data-background="images/bg-2.png" data-title="slide-bsl-sublayers" -->
-
-## Sublayers
-
-<div class="two-columns">
-  <div class="left-column">
-
-<div class="code-snippet">
+<div class="code-snippet fragment">
 <button class="play" id="filterBuildingSceneLayer"></button>
 
 ```ts
 // Iterate through all sublayers
-buildingLayer.allSublayers.forEach(l => {
+buildingLayer.allSublayers.forEach(subLayer => {
 
-  if (l.title === "Floors" || l.startWith("Structural")) {
-    l.visible = true;
+
+  const name = subLayer.modelName;
+  if (name === "Floors" || name.startsWith("Structural")) {
+    subLayer.visible = true;
   } else {
-    l.visible = l.type === "building-group";
+    subLayer.visible = subLayer.type === "building-group"
   }
 });
 ```
 
-<div class="fragment">
-
-```ts
-// Exterior shell (simplified, no interior details)
-const shell = buildingLayer.allSublayers.filter(l =>
-  l.modelName === "Overview"
-);
-
-// Group layer containing all detailed model
-const fullModel = buildingLayer.allSublayers.filter(l =>
-  l.modelName === "Overview"
-);
-
-```
-
 [i3s model names](https://github.com/Esri/i3s-spec/blob/master/docs/1.7/subLayerModelName.md)
-
 </div>
 
 </div>
@@ -420,7 +387,7 @@ view.ui.add(lineOfSight, "top-right");
 </script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Editing
+# Feature Layer Editing
 
 
 </script></section><section  data-markdown><script type="text/template">
