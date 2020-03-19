@@ -16,19 +16,19 @@ Arno Fiva, Esri R&D Center Zürich
 
 ## Agenda
 
-- Visualization
+- Visualizing BIM Models
 - Interactive Tools
-- Editing
+- Feature Layer Editing
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## 3D BIM data in the browser
+## 3D BIM Models in the Browser
 
-* Intuitive <!-- .element class="fragment" -->
-* Share with anyone <!-- .element class="fragment" -->
-* Device support, no additional software required <!-- .element class="fragment" -->
+* Share with anyone
+* Intuitive to use through web apps <!-- .element class="fragment" -->
+* Broad device support thanks to WebGL <!-- .element class="fragment" -->
 
 ---
 
@@ -60,7 +60,7 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Visualizations
+# Visualizing BIM Models
 
 ---
 
@@ -78,7 +78,7 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 <!-- .slide: data-background="images/bg-2.png" data-title="slide-load-bsl"  -->
 
-## Load BIM model
+## Load BIM Model
 
 <div class="two-columns">
   <div class="left-column">
@@ -394,7 +394,7 @@ view.ui.add(lineOfSight, "top-right");
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Editing
+# Feature Layer Editing
 
 
 
