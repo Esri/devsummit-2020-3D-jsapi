@@ -113,7 +113,7 @@ require([
 
       lineMeasurement.classList.remove("hide");
       areaMeasurement.classList.remove("hide");
-      view.ui.add([lineMeasurement, areaMeasurement], "bottom-right");
+      view.ui.add([areaMeasurement, lineMeasurement], "bottom-right");
     } else if (slide === "slide-line-of-sight") {
       view.environment.lighting.directShadowsEnabled = true;
       cameraOne.onclick = function() {
