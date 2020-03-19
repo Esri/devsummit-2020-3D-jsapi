@@ -12,6 +12,12 @@ Arno Fiva, Esri R&D Center Zürich
 
 ---
 
+<!-- .slide: data-background="images/bg-4.png" -->
+
+https://esri.github.io/devsummit-2020-3D-jsapi
+
+---
+
 <!-- .slide: data-background="images/bg-3.png" -->
 
 ## Agenda
@@ -26,7 +32,7 @@ Arno Fiva, Esri R&D Center Zürich
 
 ## 3D BIM Models in the Browser
 
-* Share with anyone
+* Share with anyone <!-- .element class="fragment" -->
 * Intuitive to use through web apps <!-- .element class="fragment" -->
 * Broad device support thanks to WebGL <!-- .element class="fragment" -->
 
@@ -60,7 +66,7 @@ https://github.com/Esri/i3s-spec/blob/master/docs/1.7/BSL_ReadMe.md
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Visualizing BIM Models
+## Visualizing BIM Models
 
 ---
 
@@ -267,7 +273,7 @@ buildingFilter.filterBlocks.add({
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Interactive Tools
+## Interactive Tools
 
 ---
 
@@ -394,7 +400,7 @@ view.ui.add(lineOfSight, "top-right");
 
 <!-- .slide: data-background="images/bg-4.png" -->
 
-# Feature Layer Editing
+## Feature Layer Editing
 
 
 
