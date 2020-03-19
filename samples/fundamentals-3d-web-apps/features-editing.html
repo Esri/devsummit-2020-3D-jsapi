@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Edit features with the Editor widget - 4.14</title>
+
+    <link
+      rel="stylesheet"
+      href="https://jsdev.arcgis.com/4.15/esri/themes/light/main.css"
+    />
+    <script src="https://jsdev.arcgis.com/4.15/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      .esri-editor .esri-item-list__scroller {
+        max-height: 350px;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/WebScene",
+        "esri/layers/FeatureLayer",
+        "esri/views/SceneView",
+        "esri/widgets/Editor"
+      ], function(WebScene, FeatureLayer, SceneView, Editor) {
+        const featureLayer = new FeatureLayer({
+          source: [],
+          fields: [{
+            name: "ObjectID",
+            alias: "ObjectID",
+            type: "oid"
+          }],
+          hasZ: true,
+          geometryType: "polyline",
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "line-3d",
+              symbolLayers: [{
+                type: "path",
+                profile: "circle",
+                width: 5,
+                material: { color: "#0079c1" },
+                cap: "round"
+              }]
+            }
+          }
+        });
+
+        const map = new WebScene({
+          portalItem: {
+            id: "55d65f8ec966496f9a75daa9b5381ac0"
+          }
+        });
+
+        map.add(featureLayer)
+
+        let view = new SceneView({
+          container: "viewDiv",
+          map
+        });
+
+        view.when(function() {
+          view.popup.autoOpenEnabled = false; //disable popups
+
+          // Create the Editor
+          let editor = new Editor({
+            view: view
+          });
+
+          // Add widget to top-right of the view
+          view.ui.add(editor, "top-right");
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="editorDiv"></div>
+  </body>
+</html>

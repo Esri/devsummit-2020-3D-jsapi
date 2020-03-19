@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Edit features with the Editor widget - 4.14</title>
+
+    <link
+      rel="stylesheet"
+      href="https://jsdev.arcgis.com/4.15/esri/themes/light/main.css"
+    />
+    <script src="https://jsdev.arcgis.com/4.15/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      .esri-editor .esri-item-list__scroller {
+        max-height: 350px;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/layers/FeatureLayer",
+        "esri/layers/IntegratedMeshLayer",
+        "esri/views/SceneView",
+        "esri/widgets/Editor"
+      ], function(FeatureLayer, IntegratedMeshLayer, SceneView, Editor) {
+        const featureLayer = new FeatureLayer({
+          elevationInfo: {
+            mode: "on-the-ground"
+          },
+          source: [],
+          fields: [{
+            name: "ObjectID",
+            alias: "ObjectID",
+            type: "oid"
+          }],
+          hasZ: true,
+          geometryType: "polygon",
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "polygon-3d",
+              symbolLayers: [{
+                type: "fill",
+                material: { color: [0, 121, 193, 0.5] },
+              }]
+            }
+          }
+        });
+
+        const integratedMeshLayer = new IntegratedMeshLayer({
+          url: "https://tiles.arcgis.com/tiles/FQD0rKU8X5sAQfh8/arcgis/rest/services/VRICON_Yosemite_Sample_Integrated_Mesh_scene_layer/SceneServer/layers/0"
+        });
+
+        let view = new SceneView({
+          container: "viewDiv",
+          map: {
+            basemap: "topo",
+            ground: "world-elevation",
+            layers: [ featureLayer, integratedMeshLayer ]
+          }
+        });
+
+        view.when(function() {
+          view.popup.autoOpenEnabled = false; //disable popups
+
+          view.goTo(integratedMeshLayer.fullExtent, { animate: false });
+
+          // Create the Editor
+          let editor = new Editor({
+            view: view
+          });
+
+          // Add widget to top-right of the view
+          view.ui.add(editor, "top-right");
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="editorDiv"></div>
+  </body>
+</html>

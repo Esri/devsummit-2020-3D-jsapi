@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <title>MapView vs. SceneView</title>
+    <style>
+      html,
+      body,
+      #mapViewDiv,
+      #sceneViewDiv {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      #mapViewDiv,
+      #sceneViewDiv {
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        width: 48%;
+        height: 96%;
+      }
+
+      #mapViewDiv {
+        left: 10px;
+      }
+
+      #sceneViewDiv {
+        right: 10px;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css" />
+    <script src="https://js.arcgis.com/4.8/"></script>
+
+    <script>
+      var view;
+
+      require([
+        "esri/Camera",
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "dojo/domReady!"
+      ], function(Camera, Map, SceneView, MapView, FeatureLayer) {
+
+        const featureLayer = new FeatureLayer({
+          url: "https://servicesqa1.arcgis.com/i7gAfcdQl7MlSCjA/arcgis/rest/services/USA_States_Generalized/FeatureServer/0"
+        });
+
+        const map = new Map({
+          basemap: "hybrid",
+          ground: "world-elevation",
+          layers: [ featureLayer ]
+        });
+
+        const mapView = new MapView({
+          container: "mapViewDiv",
+          map
+        });
+
+        const sceneView = new SceneView({
+          container: "sceneViewDiv",
+          map
+        });
+
+        mapView.watch("viewpoint", function(viewpoint) {
+          if (mapView.interacting || mapView.animation) {
+            sceneView.viewpoint = viewpoint;
+            sceneView.extent = mapView.extent;
+          }
+        });
+
+        sceneView.watch("viewpoint", function(viewpoint) {
+          if (sceneView.interacting || sceneView.animation) {
+            mapView.viewpoint = viewpoint;
+            mapView.extent = sceneView.extent;
+          }
+        });
+
+        sceneView.when(() => {
+          sceneView.goTo(new Camera({
+            position: {
+              spatialReference: {
+                latestWkid: 3857,
+                wkid: 102100
+              },
+              x: -11126855.324855592,
+              y: 4041300.767997664,
+              z: 9062165.171148228
+            },
+            heading: 359.9999987925817,
+            tilt: 1.7399164481605833
+          }));
+        })
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="mapViewDiv"></div>
+    <div id="sceneViewDiv"></div>
+  </body>
+</html>

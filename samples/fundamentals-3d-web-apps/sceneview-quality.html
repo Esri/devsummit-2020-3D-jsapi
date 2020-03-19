@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Edit features with the Editor widget - 4.14</title>
+
+    <link
+      rel="stylesheet"
+      href="https://jsdev.arcgis.com/4.15/esri/themes/light/main.css"
+    />
+    <script src="https://jsdev.arcgis.com/4.15/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      .esri-editor .esri-item-list__scroller {
+        max-height: 350px;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/layers/SceneLayer",
+        "esri/views/SceneView"
+      ], function(SceneLayer, SceneView) {
+
+        let sceneLayer = new SceneLayer({
+          url: "https://tiles.arcgis.com/tiles/V6ZHFr6zdgNZuVG0/arcgis/rest/services/BLDG_SF_YR_HGT/SceneServer"
+        })
+
+        let view = new SceneView({
+          container: "viewDiv",
+          map: {
+            basemap: "satellite",
+            ground: "world-elevation",
+            layers: [ sceneLayer ]
+          },
+          camera: {
+            position: {
+              spatialReference: {
+                wkid: 102100
+              },
+              x: -13623537.042305764,
+              y: 4550276.319878659,
+              z: 237.7883595470339
+            },
+            heading: 245.5053271240132,
+            tilt: 79.91945597586695
+          }
+        });
+
+        window.setLowQuality = () => {
+          view.qualityProfile = "low";
+          view.environment.atmosphere.quality = "low";
+        };
+
+        window.setHighQuality = () => {
+          view.qualityProfile = "high";
+          view.environment.atmosphere.quality = "high";
+        };
+
+        view.when(function() {
+          var button01 = window.parent.document.getElementById("scene-view-quality-button01");
+
+          if (button01) {
+            button01.onclick = window.setLowQuality;
+          }
+
+          var button02 = window.parent.document.getElementById("scene-view-quality-button02");
+
+          if (button02) {
+            button02.onclick = window.setHighQuality;
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>

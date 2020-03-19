@@ -1,0 +1,229 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>SceneLayerView - query statistics by geometry - 4.15</title>
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .esri-ui-top-right {
+            max-height: 100%;
+        }
+
+        #queryDiv {
+            min-width: 250px;
+            font-size: 14px;
+            padding: 10px;
+            display: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .geometry-options {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .geometry-button {
+            flex: 1;
+            border-style: solid;
+            border-width: 1px;
+            border-image: none;
+        }
+
+        .geometry-button-selected {
+            background: #4c4c4c;
+            color: #fff;
+        }
+
+        .count {
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.15/"></script>
+
+    <script>
+        require([
+            "esri/WebScene",
+            "esri/views/SceneView",
+            "esri/layers/GraphicsLayer",
+            "esri/widgets/Sketch/SketchViewModel",
+            "esri/views/layers/support/FeatureFilter",
+            "esri/Graphic",
+            "esri/core/promiseUtils"
+        ], function (
+            WebScene,
+            SceneView,
+            GraphicsLayer,
+            SketchViewModel,
+            FeatureFilter,
+            Graphic,
+            promiseUtils
+        ) {
+                // Load webscene and display it in a SceneView
+                const webscene = new WebScene({
+                    portalItem: {
+                        id: "80586a656fc24cd2b15a85d9b713696f"
+                    }
+                });
+                // create the SceneView
+                const view = new SceneView({
+                    container: "viewDiv",
+                    map: webscene
+                });
+                window.view = view;
+                // add a GraphicsLayer for the sketches
+                const sketchLayer = new GraphicsLayer();
+                view.map.addMany([sketchLayer]);
+
+                let sceneLayer = null;
+                let sceneLayerView = null;
+
+                // Assign scene layer once webscene is loaded and initialize UI
+                webscene.load().then(function () {
+                    sceneLayer = webscene.layers.find(function (layer) {
+                        return layer.title === "Helsinki textured buildings";
+                    });
+                    sceneLayer.outFields = ["buildingMaterial", "yearCompleted"];
+
+                    view.whenLayerView(sceneLayer).then(function (layerView) {
+                        sceneLayerView = layerView;
+                        queryDiv.style.display = "block";
+                    });
+                });
+
+                view.watch("updating", function (updating) {
+                    if (!updating) {
+                        runQuery();
+                    }
+                });
+
+                view.ui.add([queryDiv], "bottom-left");
+
+                // use SketchViewModel to draw polygons that are used as a query
+                let sketchGeometry = null;
+                const sketchViewModel = new SketchViewModel({
+                    layer: sketchLayer,
+                    defaultUpdateOptions: {
+                        tool: "reshape",
+                        toggleToolOnClick: false
+                    },
+                    view: view
+                });
+
+                sketchViewModel.on("create", function (event) {
+                    if (event.state === "complete") {
+                        sketchGeometry = event.graphic.geometry;
+                        runQuery();
+                    }
+                });
+
+                sketchViewModel.on("update", function (event) {
+                    if (event.state !== "cancel" && event.graphics.length) {
+                        sketchGeometry = event.graphics[0].geometry;
+                        runQuery();
+                    }
+                });
+                // draw geometry buttons - use the selected geometry to sktech
+                document
+                    .getElementById("polygon-geometry-button")
+                    .addEventListener("click", geometryButtonsClickHandler);
+                function geometryButtonsClickHandler(event) {
+                    const geometryType = event.target.value;
+                    clearGeometry();
+                    sketchViewModel.create(geometryType);
+                }
+
+                // Clear the geometry and set the default renderer
+                document
+                    .getElementById("clearGeometry")
+                    .addEventListener("click", clearGeometry);
+
+                // Clear the geometry and set the default renderer
+                function clearGeometry() {
+                    sceneLayerView.filter = null;
+                    sketchGeometry = null;
+                    sketchViewModel.cancel();
+                    sketchLayer.removeAll();
+                    clearHighlighting();
+                }
+
+                // set the geometry query on the visible SceneLayerView
+                var debouncedRunQuery = promiseUtils.debounce(function () {
+                    if (!sketchGeometry) {
+                        return;
+                    }
+
+                    return promiseUtils.eachAlways([
+                        updateSceneLayer()
+                    ]);
+                });
+
+                function runQuery() {
+                    debouncedRunQuery().catch((error) => {
+                        if (error.name === "AbortError") {
+                            return;
+                        }
+
+                        console.error(error);
+                    });
+                }
+
+                // Set the renderer with objectIds
+                var highlightHandle = null;
+                function clearHighlighting() {
+                    if (highlightHandle) {
+                        highlightHandle.remove();
+                        highlightHandle = null;
+                    }
+                }
+
+                function highlightBuildings(objectIds) {
+                    // Remove any previous highlighting
+                    clearHighlighting();
+                    const objectIdField = sceneLayer.objectIdField;
+                    document.getElementById("count").innerHTML = objectIds.length;
+
+                    highlightHandle = sceneLayerView.highlight(objectIds);
+                }
+
+                function updateSceneLayer() {
+                  sketchLayer.removeAll();
+                  const filter = new FeatureFilter({
+                    geometry: sketchGeometry,
+                    spatialRelationship: "contains"
+                  });
+                  sceneLayerView.filter = filter;
+                }
+            });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <div id="queryDiv" class="esri-widget">
+        <b>Filter by geometry</b><br /><br />
+        <div class="geometry-options">
+            <button class="esri-widget--button esri-icon-polygon geometry-button" id="polygon-geometry-button"
+                value="polygon" title="Filter by polygon"></button>
+        </div>
+        <br />
+        <br />
+        <button class="esri-button" id="clearGeometry" type="button">
+            Clear
+        </button>
+    </div>
+</body>
+
+</html>

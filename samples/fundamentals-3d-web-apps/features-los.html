@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Line of sight widget - 4.14</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.14/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.14/"></script>
+
+    <script>
+      require([
+        "esri/WebScene",
+        "esri/views/SceneView",
+        "esri/widgets/LineOfSight",
+        "esri/widgets/Expand",
+        "esri/geometry/Point",
+        "esri/Graphic",
+        "esri/core/watchUtils"
+      ], function(
+        WebScene,
+        SceneView,
+        LineOfSight,
+        Expand,
+        Point,
+        Graphic,
+        watchUtils
+      ) {
+        /************************************************************
+         * Load a web scene and set it to the map property in a SceneView.
+         ************************************************************/
+        const scene = new WebScene({
+          portalItem: {
+            id: "82127fea11d6439abba3318cb93252f7"
+          }
+        });
+
+        const view = new SceneView({
+          map: scene,
+          container: "viewDiv"
+        });
+
+        /**************************************
+         * Initialize the LineOfSight widget
+         **************************************/
+
+        const lineOfSight = new LineOfSight({
+          view: view,
+          container: "losWidget"
+        });
+
+        /**************************************
+         * Add symbols to mark the intersections
+         * for the line of sight
+         **************************************/
+
+        const viewModel = lineOfSight.viewModel;
+
+        // watch when observer location changes
+        viewModel.watch("observer", function(value) {
+          setIntersectionMarkers();
+        });
+
+        // watch when a new target is added or removed
+        viewModel.targets.on("change", function(event) {
+          event.added.forEach(function(target) {
+            setIntersectionMarkers();
+            // for each target watch when the intersection changes
+            target.watch("intersectedLocation", setIntersectionMarkers);
+          });
+        });
+
+        // an inverted cone marks the intersection that occludes the view
+        const intersectionSymbol = {
+          type: "point-3d",
+          symbolLayers: [
+            {
+              type: "object",
+              resource: { primitive: "inverted-cone" },
+              material: { color: [255, 100, 100] },
+              height: 10,
+              depth: 10,
+              width: 10,
+              anchor: "relative",
+              anchorPosition: { x: 0, y: 0, z: -0.7 }
+            }
+          ]
+        };
+
+        function setIntersectionMarkers() {
+          view.graphics.removeAll();
+          viewModel.targets.forEach(function(target) {
+            if (target.intersectedLocation) {
+              const graphic = new Graphic({
+                symbol: intersectionSymbol,
+                geometry: target.intersectedLocation
+              });
+              view.graphics.add(graphic);
+            }
+          });
+        }
+
+        /**************************************
+         * Create an analysis by setting
+         * the initial observer and four targets
+         **************************************/
+
+        function createTarget(lat, lon, z) {
+          return {
+            location: new Point({
+              latitude: lat,
+              longitude: lon,
+              z: z || 0
+            })
+          };
+        }
+
+        // start the tool to create the line of sight analysis
+        viewModel.start();
+        // resume the analysis
+        watchUtils.whenEqualOnce(viewModel, "state", "creating", function(
+          value
+        ) {
+          viewModel.stop();
+        });
+
+        // add an Expand widget to make the menu responsive
+        const expand = new Expand({
+          expandTooltip: "Expand line of sight widget",
+          view: view,
+          content: document.getElementById("menu"),
+          expanded: true
+        });
+
+        view.ui.add(expand, "top-right");
+
+        view.when(function() {
+          // allow user to turn the layer with new planned buildings on/off
+          // and see how the line of sight analysis changes
+          const plannedBuildingsLayer = view.map.layers
+            .filter(function(layer) {
+              return (
+                layer.title === "Boston major projects - MajorProjectsBuildings"
+              );
+            })
+            .getItemAt(0);
+
+          document
+            .getElementById("layerVisibility")
+            .addEventListener("change", function(event) {
+              plannedBuildingsLayer.visible = event.target.checked;
+            });
+        });
+      });
+    </script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #menu {
+        padding: 1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="viewDiv">
+      <div id="viewDiv">
+        <div id="menu" class="esri-widget">
+          <h3>Line of sight analysis</h3>
+          <input type="checkbox" id="layerVisibility" checked /><label
+            for="layerVisibility"
+            >Show development layer</label
+          >
+          <div id="losWidget"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

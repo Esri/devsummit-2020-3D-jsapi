@@ -151,12 +151,6 @@
                 });
                 // draw geometry buttons - use the selected geometry to sktech
                 document
-                    .getElementById("point-geometry-button")
-                    .addEventListener("click", geometryButtonsClickHandler);
-                document
-                    .getElementById("line-geometry-button")
-                    .addEventListener("click", geometryButtonsClickHandler);
-                document
                     .getElementById("polygon-geometry-button")
                     .addEventListener("click", geometryButtonsClickHandler);
                 function geometryButtonsClickHandler(event) {
@@ -474,20 +468,10 @@
 <body>
     <div id="viewDiv"></div>
     <div id="queryDiv" class="esri-widget">
-        <b>Query by geometry</b><br />
-        <br />Draw a geometry to query by:
+        <b>Query by geometry</b><br /><br />
         <div class="geometry-options">
-            <button class="esri-widget--button esri-icon-map-pin geometry-button" id="point-geometry-button"
-                value="point" title="Query by point"></button>
-            <button class="esri-widget--button esri-icon-polyline geometry-button" id="line-geometry-button"
-                value="polyline" title="Query by line"></button>
             <button class="esri-widget--button esri-icon-polygon geometry-button" id="polygon-geometry-button"
                 value="polygon" title="Query by polygon"></button>
-        </div>
-        <br />
-        <div class="tooltip">
-            <label for="bufferNum">Set a geometry buffer size:</label>
-            <div id="bufferNum"></div>
         </div>
         <br />
         <button class="esri-button" id="clearGeometry" type="button">
