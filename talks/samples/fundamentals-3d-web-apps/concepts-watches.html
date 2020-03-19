@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Edit features with the Editor widget - 4.14</title>
+
+    <link
+      rel="stylesheet"
+      href="https://jsdev.arcgis.com/4.15/esri/themes/light/main.css"
+    />
+    <script src="https://jsdev.arcgis.com/4.15/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      #log {
+        position: absolute;
+        padding: 5px 0 5px 0;
+        bottom: 40px;
+        width: 100%;
+        color: white;
+        background: rgba(0,0,0,0.5);
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/views/SceneView"
+      ], function(SceneView) {
+        let view = new SceneView({
+          container: "viewDiv",
+          map: {
+            basemap: "satellite"
+          },
+          camera: {
+            position: {
+              x: 8.062,
+              y: 46.042,
+              z: 14813.5
+            },
+            heading: 0,
+            tilt: 72
+          }
+        });
+
+        view.watch("center", (value) => {
+          document.getElementById("log").innerHTML = "&nbsp;center set to: " + value.longitude.toFixed(2).toString() + ", " + value.latitude.toFixed(2).toString();
+        });
+
+        window.increaseHeading = () => {
+          view.center = {
+            x: -115.94,
+            y: 33.8
+          };
+        };
+
+        view.when(function() {
+          var button01 = window.parent.document.getElementById("scene-view-watches-button01");
+
+          if (button01) {
+            button01.onclick = window.increaseHeading;
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="log"></div>
+  </body>
+</html>

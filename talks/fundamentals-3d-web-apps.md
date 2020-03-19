@@ -110,7 +110,7 @@ using the ArcGIS API for JavaScript
   - Firefox
   - Safari
   - Edge
-<br>  
+<br>
 <small>Internet Explorer 11 is not recommended</small>
 
 
@@ -241,7 +241,7 @@ Choose one of the geographic coordinate systems:
 ### <b>Local scenes</b>
 
 Visualize data in a local planar way
-  
+
 <img class="plain" src="./images/fundamentals-3d-web-apps/localscene.png" height=500 background=none>
 
 ---
@@ -289,7 +289,7 @@ Clip to your area of interest
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
-<!-- 
+<!--
 
 ## Presenter Note ##
 
@@ -297,11 +297,11 @@ my-styles.css is not explained in detail, but users need to know that
 they have to set the size of the view, otherwise it will not render.
 The minimum setting is to make the html, body and viewDiv all 100%, i.e.:
 
-      html, body, #viewDiv { 
-        padding: 0; 
-        margin:0; 
-        width: 100%; 
-        height: 100% 
+      html, body, #viewDiv {
+        padding: 0;
+        margin:0;
+        width: 100%;
+        height: 100%
       }
 -->
 
@@ -630,13 +630,179 @@ The minimum setting is to make the html, body and viewDiv all 100%, i.e.:
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Details about the `Webscene` class
+## Basics
 
-- `Layers`, `Presentation`, ...
-- `Basemap` is exactly the same concept as in 2D
-- `Ground` defines the ground surface of the scene
+- Unified 2D and 3D [`Map`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) data model:
+  - [`Layer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html) &mdash; Fundamental Map component
+  - [`Renderer`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html) &mdash; Visualization Methods
+  - [`Symbol`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-Symbol.html) &mdash; Symbolization Instructions
+- Common [`View`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html) subclass between 2D and 3D:
+  - [`MapView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html) &mdash; 2D Visualization
+  - [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html) &mdash; 3D Visualization
 
 ---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Architecture
+<br/>
+<img src="./images/fundamentals-3d-web-apps/concepts-architecture.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+
+---
+
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## MapView & SceneView
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 120%;">
+  <pre><code class="lang-ts" style="margin-bottom: -20px;">
+  const map = new Map({
+    basemap: "streets",
+    </code>
+    <code class="lang-ts" style="margin-bottom: -20px;">
+    layers: [new FeatureLayer({
+      url: "...USA_States/FeatureServer/0"
+    })]
+  });
+  </code>
+  <code class="lang-ts" style="margin-bottom: -20px;">
+  const viewLeft = new MapView({
+    container: "viewDivLeft",
+    </code>
+    <code class="lang-ts" style="margin-bottom: -20px;">
+    map: map
+  });
+  </code>
+  <code class="lang-ts" style="margin-bottom: -20px;">
+  const viewRight = new SceneView({
+    container: "viewDivRight",
+    </code>
+    <code class="lang-ts" style="margin-bottom: -20px;">
+    map: map
+  });
+  </code>
+</div>
+  </div>
+  <div class="right-column">
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/concepts-2d-3d-parallel.html"></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+
+## Object Construction
+
+- Unified object construction
+- &ldquo;Auto-casting&rdquo; implicitly calls constructor of corresponding type
+
+
+<div class="code-snippet" style="font-size: 140%; max-width: 600px; float: none; margin: auto;">
+  <pre><code class="lang-ts">
+  var view = new SceneView({
+    map: {
+      basemap: "topo"
+    },
+    </code>
+    <code class="lang-ts">
+    extent: {
+      xmin: -180, xmax: 180, ymin: -90, ymax: 90,
+      spatialReference: 120100
+    },
+    </code>
+    <code class="lang-ts">
+    environment: {
+      lighting: {
+        date: "Sun Mar 15 2020 18:00:00 GMT-8"
+      }
+    }
+  });
+  </code></pre>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Object Properties
+
+- Properties can be observed and watchers receive change notifications
+
+<div class="two-columns">
+  <div class="left-column" style="width: unset;">
+
+  <div class="code-snippet" style="font-size: 100%;">
+  <button class="play" id="scene-view-watches-button01"></button>
+  <pre><code class="lang-ts">
+  view.watch("center", (value) => {
+    // Called whenever the center property value has changed
+    console.log("center set to:", value.longitude, value.latitude);
+  });
+  </code>
+  <code class="lang-ts">
+  // Auto-cast allows omitting constructing a new Point instance
+  view.center = {
+    x: -115.94,
+    y: 33.8
+  };
+  </code></pre>
+  </div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/concepts-watches.html"></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Promises
+
+- All asynchronous operations are modeled as a `Promise`
+- `Promises` are chainable and allow writing sequential asynchronous code
+- Many classes signal readiness through promises ([`SceneView.when()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html), [`Layer.load()`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html))
+
+<div class="code-snippet" style="font-size: 140%; max-width: 600px; float: none; margin: auto;">
+  <pre style="padding: 0 0.75em 0 0"><code class="lang-ts">
+  view
+    .when(() => {
+      // View is ready to be interacted with, load the layer
+      return layer.load();
+    })
+    .then(() => {
+      // Layer is now loaded, project using geometry service
+      return geometryService.project([layer.fullExtent]);
+    })
+    .then((projected) => {
+      // Extent has been projected, we can now go to it
+      return view.goTo(projected[0]);
+    })
+    .then(() => {
+      // Here the gotTo animation has finished
+    });
+  </code></pre>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-3.png" -->
+
+## <b>Data Model</b>
+
+- Layers
+- Filtering
+- Querying
+
+---
+
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
@@ -665,295 +831,311 @@ The minimum setting is to make the html, body and viewDiv all 100%, i.e.:
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Layers
-
-|              |  |
-|--------------|--|
-| <div style="font-size: 300%; background: rgba(22, 34, 147); position: absolute;">`FeatureLayer`</div> | <small>2D & 3D</small> |
-| `CSVLayer` | <small>2D & 3D</small> |
-| `StreamLayer` | <small>2D & 3D</small> |
-| `MapImageLayer` | <small>2D & 3D</small> |
-| `ImageryLayer` | <small>2D & 3D</small> |
-| `WMSLayer` | <small>2D & 3D</small> |
-| `OpenStreetMapLayer` | <small>2D & 3D</small> |
-| `TileLayer` | <small>2D & 3D</small> |
-| `WebTileLayer` | <small>2D & 3D</small> |
-| `WMTSLayer` | <small>2D & 3D</small> |
-| `VectorTileLayer` | <small>2D & 3D</small> |
-| `ElevationLayer` | <small> 3D only</small> |
-| `SceneLayer` | <small> 3D only</small> |
-| `IntegratedMeshLayer` | <small> 3D only</small> |
-| `PointCloudLayer` | <small> 3D only</small> |
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-## Adding a `FeatureLayer`
+## Adding a `Layer`
 
 <div class="code-snippet" style="font-size: 140%; max-width: 600px; float: none; margin: auto;">
-    <pre><code style="margin-bottom: -40px;" class="grey">
+  <pre><code style="margin-bottom: -20px;" class="lang-js">
   require([
-    "esri/WebScene",
     "esri/views/SceneView",
+    "esri/layers/SceneLayer",
+    "dojo/domReady!"
+  ], function(SceneView, SceneLayer) {
   </code>
-  <code style="margin-bottom: -40px;" class="lang-js">
-    "esri/layers/FeatureLayer"
-  </code>
-  <code style="margin-bottom: -40px;" class="lang-js">
-  ], function(WebScene, SceneView, FeatureLayer) {
-  </code>
-  <code style="margin-bottom: -40px;" class="grey">
-    var scene = new WebScene({
-      portalItem: {
-        id: "69af87076d884670995217536d60f150"
-      }
-    });
+  <code style="margin-bottom: -20px;" class="lang-js">
     var view = new SceneView({
       container: "viewDiv",
-      map: scene
+      map: {
+        basemap: "topo"
+      }
     });
   </code>
-  <code style="margin-bottom: -40px;" class="lang-js">
-    var layer = new FeatureLayer({
-      portalItem: {
-        id: "a38c0bd41aad41d89ab2a31050ff07b1"
-      }
+  <code style="margin-bottom: -20px;" class="lang-js">
+    var layer = new SceneLayer({
+      url: "...services/NYCatt/SceneServer",
     });
-    scene.add(layer);
   </code>
-  <code class="grey">
+  <code style="margin-bottom: -20px;" class="lang-js">
+    map.add(layer);
   });
-    </code></pre>
-    </div>
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-## Adding a layer
-
-<div class="two-columns">
-  <div class="left-column">
-
-<div class="code-snippet" style="font-size: 120%;">
-    <pre><code class="lang-js">
-  require([
-    "esri/WebScene",
-    "esri/views/SceneView",
-    "esri/layers/FeatureLayer"
-  ], function(WebScene, SceneView, FeatureLayer) {
-    var scene = new WebScene({
-      portalItem: {
-        id: "69af87076d884670995217536d60f150"
-      }
-    });
-    var view = new SceneView({
-      container: "viewDiv",
-      map: scene
-    });
-    var layer = new FeatureLayer({
-      portalItem: {
-        id: "a38c0bd41aad41d89ab2a31050ff07b1"
-      }
-    });
-    scene.add(layer);
-  });
-    </code></pre>
-    </div>
-
-
-  </div>
-  <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-2.html"></iframe>
-  </div>
+  </code></pre>
 </div>
 
-
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Widgets
+## Working with layers
 
-<div style="max-width:70%;margin: auto; margin-bottom: 50px;">Widgets are UI components that add functionalities to your scene. The API provides ready-to-use widgets, for example:</div>
-
-- `Legend`
-- `LayerList`
-- `Search`
-- ...
-
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-## Adding a widget
-
-
-<div class="code-snippet" style="font-size: 140%;max-width: 600px; float: none; margin: auto;">
-    <pre><code style="margin-bottom: -40px;" class="grey">
-      require([
-        "esri/WebScene",
-        "esri/views/SceneView",
-        "esri/layers/FeatureLayer",
-  </code>
-  <code style="margin-bottom: -40px;" class="lang-js">
-        "esri/widgets/Search"
-  </code>
-  <code style="margin-bottom: -40px;" class="grey">
-      ], function(
-        WebScene, 
-        SceneView, 
-        FeatureLayer,
-  </code>
-  <code style="margin-bottom: -40px;" class="lang-js">
-        Search
-      ) {
-        // ...
-  </code>
-  <code style="margin-bottom: -40px;" class="lang-js">
-        var searchWidget = new Search({
-          view: view
-        });
-        view.ui.add(searchWidget, {
-          position: "top-right"
-        });
-  </code>
-  <code class="grey">
-      });
-    </code></pre>
-    </div>
-
+<div class="code-snippet" style="max-width: 800px; font-size: 140%; float: none; margin: auto;">
+  <pre><code class="lang-ts">
+class SceneLayer {
+  // Filtering
+  definitionExpression: string;
+</code><code class="lang-ts">
+  // Renderer assigns each feature a color and style
+  renderer: Renderer;
+</code><code class="lang-ts">
+  // Querying
+  queryFeatures(params: Query): FeatureSet;
+  queryExtent(params: Query): Extent;
+  ...
+}
+  </code></pre>
+</div>
 
 ---
 
+
+
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Adding a widget
+## Server side filtering
 
 <div class="two-columns">
   <div class="left-column">
+<div class="code-snippet" style="font-size: 140%;">
+<button class="play" id="mesh-filtering-button01"></button>
+<pre><code class="lang-js">// only show buildings
+// constructed before 1900
+sceneLayer.definitionExpression =
+  "CNSTRCT_YR < 1900 AND CNSTRCT_YR > 0";
+</code></pre>
+</div>
 
 <div class="code-snippet" style="font-size: 140%;">
-    <pre><code class="lang-js">
-    require([
-      "esri/WebScene",
-      "esri/views/SceneView",
-      "esri/layers/FeatureLayer",
-      "esri/widgets/Search"
-    ], function(
-      WebScene, 
-      SceneView, 
-      FeatureLayer,
-      Search
-    ) {
-      // ...
-      var searchWidget = new Search({
-        view: view
-      });
-      view.ui.add(searchWidget, {
-        position: "top-right"
-      });
-    });
-    </code></pre>
-    </div>
+<button class="play" id="mesh-filtering-button03"></button>
+<pre><code class="lang-js">// reset filter
+sceneLayer.definitionExpression = null;
+</code></pre>
+</div>
 
+<div class="code-snippet" style="font-size: 140%;">
+<button class="play" id="mesh-filtering-button02"></button>
+<pre><code class="lang-js">// only show tall buildings
+sceneLayer.definitionExpression =
+  "HEIGHTROOF > 300";
+</code></pre>
+</div>
 
   </div>
   <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-3.html"></iframe>
+    <iframe id="scene-layer-mesh2" data-src="./samples/fundamentals-3d-web-apps/concepts-definitionExpression.html" ></iframe>
   </div>
 </div>
 
 ---
 
+
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Popups
+## Client side filtering
 
 <div class="two-columns">
   <div class="left-column">
-<div>
-Open it programmatically:
-</div>
-      <div class="code-snippet" style="font-size: 140%;margin-top: 30px;">
-        <pre><code class="lang-js">
-  view.on("click", function(event) {
-    event.stopPropagation();
-    view.popup.open({
-      title: "Reverse geocode: [" 
-        + event.mapPoint.longitude 
-        + ", " + event.mapPoint.latitude 
-        + "]",
-      location: event.mapPoint
+
+  <div class="code-snippet" style="font-size: 100%;">
+  <pre><code style="margin-bottom: -20px;" class="lang-js">
+  require([
+    "esri/geometry/Polygon",
+    "esri/layers/SceneLayer",
+    "esri/views/SceneView",
+    "esri/views/layers/support/FeatureFilter",
+    "dojo/domReady!"
+  ], function(Polygon, SceneLayer, SceneView, FeatureFilter) {
+  </code>
+  <code style="margin-bottom: -20px;" class="lang-js">
+    var layer = new SceneLayer({
+      url: "...services/NYCatt/SceneServer",
+    });
+  </code>
+  <code style="margin-bottom: -20px;" class="lang-js">
+    var view = new SceneView({
+      container: "viewDiv",
+      map: {
+        basemap: "topo",
+        layers: [ layer ]
+      }
+    });
+  </code>
+  <code style="margin-bottom: -20px;" class="lang-js">
+    view.whenLayerView(layer).then((layerView) => {
+      layer.filter = new FeatureFilter({
+        geometry: new Polygon({ ... }),
+        spatialRelationship: "contains"
+      });
     });
   });
-        </code></pre>
-      </div>
+  </code></pre>
+  </div>
 
   </div>
   <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-3.html"></iframe>
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/scenelayerview-filter.html"></iframe>
   </div>
 </div>
+
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Popup templates
+## Client side querying
 
 <div class="two-columns">
   <div class="left-column">
-<div>Enable on a layer:</div>
-  <div class="code-snippet" style="font-size: 135%;margin-top: 20px;">
-    <pre style="padding: 0.5em;"><code class="lang-js" style="margin-bottom: 20px;">
-  layer.popupEnabled = true;
-</code></pre></div>
 
-<br><br>
-<div>Configure popup:</div>
-    <div class="code-snippet" style="font-size: 135%;">
-      <pre style="padding: 0.5em;"><code class="lang-js">
-  var template = {
-    title: "Building <b>{NAME}</b>",
-    content: "This build has an enery consumption<br/>"
-      + "of <b>{ElectricUse}</b> kBTU, for a score "
-      + "of <b>{StarScore}</b>."
-  };
-  layer.popupTemplate = template;
-      </code></pre>
-    </div>
+  <div class="code-snippet" style="font-size: 100%;">
+  <pre><code style="margin-bottom: -20px;" class="lang-js">
+  require([
+    "esri/geometry/Polygon",
+    "esri/layers/SceneLayer",
+    "esri/views/SceneView"
+    "dojo/domReady!"
+  ], function(Polygon, SceneLayer, SceneView) {
+  </code>
+  <code style="margin-bottom: -20px;" class="lang-js">
+    var layer = new SceneLayer({
+      url: "...services/NYCatt/SceneServer",
+    });
+  </code>
+  <code style="margin-bottom: -20px;" class="lang-js">
+    var view = new SceneView({
+      container: "viewDiv",
+      map: {
+        basemap: "topo",
+        layers: [ layer ]
+      }
+    });
+  </code>
+  <code style="margin-bottom: -20px;" class="lang-js">
+    view.whenLayerView(layer).then((layerView) => {
+      var query = layerView.createQuery();
+      query.geometry = new Polygon({ ... });
+      layerView.queryFeatures(query).then((result) {
+        ...
+      });
+    });
+  });
+  </code></pre>
+  </div>
+
   </div>
   <div class="right-column">
-    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-4.html"></iframe>
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/scenelayerview-query-stats.html"></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Setting Layer style
+
+<div class="two-columns">
+  <div class="left-column">
+<div class="code-snippet" style="font-size: 100%;">
+<button class="play" id="mesh-renderer-button01"></button>
+<pre><code class="lang-js">// draw buildings in transparent green
+sceneLayer.renderer = {
+  type: "simple",
+  symbol: {
+    type: "mesh-3d",
+    symbolLayers: [{
+      type: "fill",
+      material: {
+        color: [144, 238, 144, 0.3]
+      }
+    }]
+  }
+};
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 100%;">
+<button class="play" id="mesh-renderer-button02"></button>
+<pre><code class="lang-js">// color buildings by construction year
+sceneLayer.renderer = {
+ type: "simple",
+ visualVariables: [{
+   type: "color",
+   field: "CNSTRCT_YR",
+   stops: [{
+       value: 1867,
+       color: [69, 83, 122]
+     },
+     ...
+   ]
+ }]
+};
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-layer-mesh2" data-src="./samples/fundamentals-3d-web-apps/concepts-renderer.html" ></iframe>
   </div>
 </div>
 
 ---
 
+
+
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Architecture
-<br/>
-<img src="./images/fundamentals-3d-web-apps/concepts-architecture2.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+## [Underground](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html)
+
+<div class="two-columns">
+  <div class="left-column">
+<div class="code-snippet" style="font-size: 130%;">
+<button class="play" id="underground-button01"></button>
+<pre><code class="lang-ts">// Ground object is part of Map/WebScene
+const ground = map.ground;</code><code class="lang-ts">
+// Set ground to 50% transparent
+ground.opacity = 0.5;
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 130%;">
+<button class="play" id="underground-button02"></button>
+<pre><code class="lang-ts">// allow camera to go underground
+ground.navigationConstraint = {
+  type: "none"
+};
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-layer-mesh2" data-src="./samples/fundamentals-3d-web-apps/concepts-underground.html" ></iframe>
+  </div>
+</div>
 
 ---
 
+
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Architecture
-<br/>
-<img src="./images/fundamentals-3d-web-apps/concepts-architecture3.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+## Details about the `WebScene` class
+
+- `Layers`, `Presentation`, ...
+- `Basemap` is exactly the same concept as in 2D
+- `Ground` defines the ground surface of the scene
+
+<div>
+  <img src="./images/fundamentals-3d-web-apps/concepts-architecture2.png" width="50%" style="border: none; background: none; box-shadow: none"/>
+</div>
 
 ---
 
-<!-- .slide: data-background="images/bg-2.png" -->
+<!-- .slide: data-background="images/bg-3.png" -->
 
-## Architecture
-<br/>
-<img src="./images/fundamentals-3d-web-apps/concepts-architecture.png" width="60%" style="border: none; background: none; box-shadow: none"/>
+## <b>View Concepts</b>
+
+- SceneView
+- Camera
+- Popups
+- Widgets
 
 ---
 
@@ -972,18 +1154,19 @@ Open it programmatically:
     goTo(...);
     </code>
     <code class="lang-ts">
-    // Finding graphics at screen locations
-    hitTest(...);
-    </code>
-    <code class="lang-ts">
     // Converting coordinate systems
     toScreen(mapPoint: Point): ScreenPoint;
     toMap(screenPoint: ScreenPoint): Point;
+    </code>
+    <code class="lang-ts">
+    // Quality profile
+    qualityProfile: string;
   }
   </code></pre>
 </div>
 
 ---
+
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
@@ -1021,7 +1204,7 @@ class Camera {
 <pre ><code class="lang-ts">
 const camera = view.camera.clone();
 </code><code class="lang-ts">
-// Increment the heading of the camera by 5 degrees
+// Increment heading of the camera by 5 degrees
 camera.heading += 5;
 </code><code class="lang-ts">
 // Set the modified camera on the view
@@ -1051,11 +1234,11 @@ view.camera = camera;
   // target heading = current heading + 30
   var newHeading = view.camera.heading + 30;
 </code><code class="lang-ts">
-  // go to heading preserves view.center 
+  // go to heading preserves view.center
   view.goTo({
-      heading: newHeading
-  },{ 
-      speedFactor: 0.5 
+  &nbsp;&nbsp;heading: newHeading
+  },{
+  &nbsp;&nbsp;speedFactor: 0.5
   });</code></pre>
 </div>
 
@@ -1065,8 +1248,8 @@ view.camera = camera;
   // coordinates (lon, lat) of Mount Fuji
   var newCenter = [138.729050, 35.360638];
   view.goTo({
-    center: newCenter,
-    zoom: 13
+  &nbsp;&nbsp;center: newCenter,
+  &nbsp;&nbsp;zoom: 13
   });</code></pre>
 </div>
 
@@ -1089,7 +1272,8 @@ view.camera = camera;
 <pre><code class="lang-js" >// Every time the user clicks on the map...
 view.on("click", function(event) {
 </code><code class="lang-js">
-  // convert the screen position to map coordinates
+  // convert the screen position to
+  // map coordinates
   var position = view.toMap(event.x, event.y);
 </code><code class="lang-js">
   // add a cone symbol at that location
@@ -1110,142 +1294,167 @@ view.on("click", function(event) {
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-## Working with layers
+## Quality Profile
 
-<div class="code-snippet" style="max-width: 800px; font-size: 140%; float: none; margin: auto;">
-  <pre><code class="lang-ts">
-class SceneLayer {
-  // Filtering 
-  definitionExpression: string;
-</code><code class="lang-ts">
-  // Renderer assigns each feature a color and style
-  renderer: Renderer;
-</code><code class="lang-ts">
-  // Querying
-  queryFeatures(params: Query): FeatureSet;
-  queryExtent(params: Query): Extent;
-  ...
-}
+- Use [`qualityProfile`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) and [`quality`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#constraints) to control performance and quality of the visualizations
+- Affects: Map resolution, scene level detail, anti-aliasing, atmosphere
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 100%;">
+<pre><code class="lang-ts">
+  var view = new SceneView({
+    view: "viewDiv",
+    map: {
+      basemap: "hybrid"
+    }
+  });
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 100%;">
+<button class="play" id="scene-view-quality-button01"></button>
+<pre><code class="lang-ts">
+  view.qualityProfile = "low";
+  view.environment.atmosphere.quality = "low";
+</code></pre>
+</div>
+
+<div class="code-snippet" style="font-size: 100%;">
+<button class="play" id="scene-view-quality-button02"></button>
+<pre><code class="lang-ts">
+  view.qualityProfile = "high";
+  view.environment.atmosphere.quality = "high";
+</code></pre>
+</div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="go-to-demo" data-src="./samples/fundamentals-3d-web-apps/sceneview-quality.html" ></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Popups
+
+<div class="two-columns">
+  <div class="left-column">
+<div>
+Open it programmatically:
+</div>
+      <div class="code-snippet" style="font-size: 140%;margin-top: 30px;">
+        <pre><code class="lang-js">
+  view.on("click", function(event) {
+    event.stopPropagation();
+    view.popup.open({
+      title: "Reverse geocode: ["
+        + event.mapPoint.longitude
+        + ", " + event.mapPoint.latitude
+        + "]",
+      location: event.mapPoint
+    });
+  });
+        </code></pre>
+      </div>
+
+  </div>
+  <div class="right-column">
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-3.html"></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Popup templates
+
+<div class="two-columns">
+  <div class="left-column">
+<div>Enable on a layer:</div>
+  <div class="code-snippet" style="font-size: 120%;margin-top: 20px;">
+    <pre style="padding: 0.5em;"><code class="lang-js" style="margin-bottom: 20px;">
+  layer.popupEnabled = true;
+</code></pre></div>
+
+<br><br>
+<div>Configure popup:</div>
+    <div class="code-snippet" style="font-size: 120%;">
+      <pre style="padding: 0.5em;"><code class="lang-js">
+  var template = {
+    title: "Building <b>{NAME}</b>",
+    content: "This building has an enery consumption<br/>"
+      + "of <b>{ElectricUse}</b> kBTU, with a score "
+      + "of <b>{StarScore}</b>."
+  };
+  layer.popupTemplate = template;
+      </code></pre>
+    </div>
+  </div>
+  <div class="right-column">
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-4.html"></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Widgets
+
+<div style="max-width:70%;margin: auto; margin-bottom: 50px;">Widgets are UI components that add functionalities to your scene.<br/><br/> The API provides ready-to-use widgets, for example:</div>
+
+- `Legend`
+- `LayerList`
+- `Search`
+- `LineOfSight`
+- ...
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+## Adding a widget
+
+<div class="two-columns">
+  <div class="left-column">
+
+<div class="code-snippet" style="font-size: 140%;">
+  <pre><code style="margin-bottom: -20px;" class="lang-js">
+  require([
+    // ...
+    "esri/widgets/Search",
+    "dojo/domReady!"
+  ], function(
+    WebScene,
+    SceneView,
+    FeatureLayer,
+    Search
+  ) {
+    // ...
+    </code>
+    <code style="margin-bottom: -20px;" class="lang-js">
+    var searchWidget = new Search({
+      view: view
+    });
+    </code>
+    <code style="margin-bottom: -20px;" class="lang-js">
+    view.ui.add(searchWidget, {
+      position: "top-right"
+    });
+  });
   </code></pre>
 </div>
 
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-## Filtering
-
-<div class="two-columns">
-  <div class="left-column">
-<div class="code-snippet" style="font-size: 140%;">
-<button class="play" id="mesh-filtering-button01"></button>
-<pre><code class="lang-js">// only show buildings constructed before 1900
-sceneLayer.definitionExpression =
-  "CNSTRCT_YR < 1900 AND CNSTRCT_YR > 0";
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 140%;">
-<button class="play" id="mesh-filtering-button03"></button>
-<pre><code class="lang-js">// reset filter
-sceneLayer.definitionExpression = null;
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 140%;">
-<button class="play" id="mesh-filtering-button02"></button>
-<pre><code class="lang-js">// only show tall buildings
-sceneLayer.definitionExpression =
-  "HEIGHTROOF > 300";
-</code></pre>
-</div>
 
   </div>
   <div class="right-column">
-    <iframe id="scene-layer-mesh2" data-src="./samples/fundamentals-3d-web-apps/concepts-definitionExpression.html" ></iframe>
-  </div>
-</div>
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### Setting layer style
-
-<div class="two-columns">
-  <div class="left-column">
-<div class="code-snippet" style="font-size: 120%;">
-<button class="play" id="mesh-renderer-button01"></button>
-<pre><code class="lang-js">// draw buildings in transparent green
-sceneLayer.renderer = {
-  type: "simple",
-  symbol: {
-    type: "mesh-3d",
-    symbolLayers: [{
-      type: "fill",
-      material: {
-        color: [144, 238, 144, 0.3]
-      }
-    }]
-  }
-};
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 120%;">
-<button class="play" id="mesh-renderer-button02"></button>
-<pre><code class="lang-js">// color buildings by construction year
-sceneLayer.renderer = {
- type: "simple",
- visualVariables: [{
-   type: "color",
-   field: "CNSTRCT_YR",
-   stops: [{
-       value: 1867,
-       color: [69, 83, 122]
-     },
-     ...
-   ]
- }]
-};
-</code></pre>
-</div>
-
-  </div>
-  <div class="right-column">
-    <iframe id="scene-layer-mesh2" data-src="./samples/fundamentals-3d-web-apps/concepts-renderer.html" ></iframe>
-  </div>
-</div>
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-## [Underground](https://developers.arcgis.com/javascript/latest/api-reference/esri-Ground.html)
-
-<div class="two-columns">
-  <div class="left-column">
-<div class="code-snippet" style="font-size: 130%;">
-<button class="play" id="underground-button01"></button>
-<pre><code class="lang-ts">// Ground object is part of Map/WebScene
-const ground = webScene.ground;</code><code class="lang-ts">
-// Set ground to 50% transparent
-ground.opacity = 0.5;
-</code></pre>
-</div>
-
-<div class="code-snippet" style="font-size: 130%;">
-<button class="play" id="underground-button02"></button>
-<pre><code class="lang-ts">// allow camera to go underground
-ground.navigationConstraint = {
-  type: "none"
-};
-</code></pre>
-</div>
-
-  </div>
-  <div class="right-column">
-    <iframe id="scene-layer-mesh2" data-src="./samples/fundamentals-3d-web-apps/concepts-underground.html" ></iframe>
+    <iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/setup-snippet-3.html"></iframe>
   </div>
 </div>
 
@@ -1253,59 +1462,43 @@ ground.navigationConstraint = {
 
 <!-- .slide: data-background="./images/bg-3.png" -->
 
-## <b>Feature Highlights</b> 
+## <b>Feature Highlights</b>
 
-- [Client side queries](https://developers.arcgis.com/javascript/latest/sample-code/layers-scenelayerview-query-stats/live/index.html)
-- [Participatory Planning](https://github.com/Esri/participatory-planning)
-- [Building Viewer](https://esri.github.io/building-viewer/dist/)
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### Client side queries
-
-<iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/scenelayerview-query-stats.html"></iframe>
+- 3D Editing
+- Integrated Mesh draping
+- Line of sight widget
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### Participatory Planning
-<!--#### Draw and create your next neighborhood-->
+### 3D Editing
 
-<iframe id="scene-view-map-view" data-src="https://esri.github.io/participatory-planning"></iframe>
-
----
-
-<!-- .slide: data-background="images/bg-2.png" -->
-
-### Building Viewer
-<!--#### Make your BIM data accessible-->
-
-<!--<img src="./images/turanga.jpg" width="100%"/>-->
-
-<iframe id="scene-view-map-view" data-src="https://yannikmesserli.github.io/esri-building-viewer/dist"></iframe>
+<iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/features-editing.html"></iframe>
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### There is one more...
+### Integrated Mesh draping
+
+<iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/features-im-draping.html"></iframe>
+
+<table>
+<tr><td><small>Data provided by:</small></td></tr>
+<tr><td><img src ="./images/fundamentals-3d-web-apps/vricon.png"></td></tr>
+</table>
 
 ---
 
 <!-- .slide: data-background="images/bg-2.png" -->
 
-### Water
+### Line of sight
 
-<iframe id="scene-view-map-view" height=550 data-src="https://arcg.is/1i0far"></iframe>
+<iframe id="scene-view-map-view" data-src="./samples/fundamentals-3d-web-apps/features-los.html"></iframe>
 
 ---
-
 
 <!-- .slide: data-background="images/bg-3.png" -->
-
-<!--### Thanks for attending-->
 
 <img class="plain" src="./images/fundamentals-3d-web-apps/esri-science-logo-white.png" background=none>

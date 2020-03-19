@@ -4,9 +4,8 @@ function snippet(containers, interlinks) {
     "esri/WebScene",
     "esri/views/SceneView",
     "esri/layers/SceneLayer",
-    "esri/widgets/Search",
     "dojo/domReady!"
-  ], function(WebScene, SceneView, SceneLayer, Search) {
+  ], function(WebScene, SceneView, SceneLayer) {
     var scene = new WebScene({
       portalItem: {
         id: "69af87076d884670995217536d60f150"
@@ -22,22 +21,16 @@ function snippet(containers, interlinks) {
       }
     });
      scene.when(function() {
-      scene.layers.items[2].popupTemplate = {
-        title: "Building <b>{NAME}</b>",
-        content: "This build has an enery consumption<br/>"
-          + "of <b>{ElectricUse}</b> kBTU, for a score "
-          + "of <b>{StarScore}</b>."
-      };
-    });
-    var layer = new SceneLayer({
-      url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/NYC_Tree_Clipped/FeatureServer"
-    });
-    scene.add(layer);
-    var searchWidget = new Search({
-      view: view
-    });
-    view.ui.add(searchWidget, {
-      position: "top-right"
+       scene.layers.forEach((layer) => {
+         if (layer.type === "scene") {
+          layer.popupTemplate = {
+            title: "Building <b>{NAME}</b>",
+            content: "This building has an enery consumption<br/>"
+              + "of <b>{ElectricUse}</b> kBTU, with a score "
+              + "of <b>{StarScore}</b>."
+          };
+         }
+       })
     });
   });
 }

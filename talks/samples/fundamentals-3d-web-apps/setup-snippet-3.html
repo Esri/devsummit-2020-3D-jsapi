@@ -4,9 +4,8 @@
       "esri/WebScene",
       "esri/views/SceneView",
       "esri/layers/FeatureLayer",
-      "esri/widgets/Search",
       "dojo/domReady!"
-    ], function(WebScene, SceneView, FeatureLayer, Search) {
+    ], function(WebScene, SceneView, FeatureLayer) {
       var scene = new WebScene({
         portalItem: {
           id: "69af87076d884670995217536d60f150"
@@ -22,66 +21,14 @@
         }
       });
       scene.when(function() {
-        console.log(scene.layers.items);
-        scene.layers.items[2].popupTemplate = {
-          title: "{NAME}",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "ElectricUse",
-                  label: "ElectricUse",
-                  visible: true
-                },
-                {
-                  fieldName: "StarScore",
-                  label: "StarScore",
-                  visible: true
-                }
-              ]
-            }
-          ]
-        };
-        scene.layers.items[2].popupEnabled = true;
+        scene.layers.forEach((layer) => {
+          layer.popupEnabled = false;
+        });
       });
-      var layer = new FeatureLayer({
-        url:
-          "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/NYC_Tree_Clipped/FeatureServer",
-        renderer: {
-          type: "simple", // autocasts as new SimpleRenderer()
-          symbol: {
-            type: "point-3d",
-            symbolLayers: [
-              {
-                type: "object",
-                resource: {
-                  href:
-                    "https://static.arcgis.com/arcgis/styleItems/RealisticTrees/web/resource/CastaneaDentata.json"
-                },
-                height: 24
-              }
-            ],
-            styleOrigin: {
-              styleName: "EsriRealisticTreesStyle",
-              name: "Castanea"
-            }
-          }
-        }
-      });
-      scene.add(layer);
-      var searchWidget = new Search({
-        view: view
-      });
-      view.ui.add(searchWidget, {
-        position: "top-right"
-      });
+
       var num = 0;
       view.on("click", function(event) {
-        if (num % 2 === 1) {
-          event.stopPropagation();
-        }
-        num++;
+        event.stopPropagation();
         var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
         var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
         view.popup.open({
