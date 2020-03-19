@@ -129,7 +129,6 @@ map.add(buildingLayer);
 // Iterate through all sublayers
 buildingLayer.allSublayers.forEach(subLayer => {
 
-
   const name = subLayer.modelName;
   if (name === "Floors" || name.startsWith("Structural")) {
     subLayer.visible = true;
@@ -165,12 +164,12 @@ buildingLayer.allSublayers.forEach(subLayer => {
 <button class="play" id="renderBuildingSceneLayer"></button>
 
 ```ts
-// Color windows green
+// Find window sublayer
 const windowLayer = buildingLayer
   .allSublayers.find(l => l.title === "Windows");
 
+// Color windows green
 windowLayer.renderer = new SimpleRenderer({
-
   symbol: new MeshSymbol3D({
     symbolLayers: [
       new FillSymbol3DLayer({
@@ -214,18 +213,16 @@ windowLayer.renderer = new SimpleRenderer({
 
 ```ts
 const buildingFilter = new BuildingFilter({
-  filterBlocks: [
-    {
-      filterExpression: "BldgLevel = 3",
-      filterMode: {
-        type: "solid"
-      }
+  filterBlocks: [{
+    filterExpression: "BldgLevel = 3",
+    filterMode: {
+      type: "solid"
     }
-  ]
+  }]
 });
 
 // set the filter in the filters array on the layer
-buildingLayer.filters = [buildingFilter];
+buildingLayer.filters = [ buildingFilter ];
 buildingLayer.activeFilterId = buildingFilter.id;
 
 ```
@@ -306,6 +303,7 @@ buildingFilter.filterBlocks.add({
 <button class="play" id="addShadows"></button>
 
 ```ts
+// Enable shadows
 view.environment.lighting.directShadowsEnabled = true;
 ```
 
@@ -348,7 +346,6 @@ view.ui.add(daylight, {
 <div class="code-snippet">
 
 ```ts
-// Add Slice widget
 const slice = new Slice({ view });
 const viewModel = slice.viewModel;
 
@@ -369,7 +366,6 @@ viewModel.excludedLayers = [stairs];
 <div class="code-snippet">
 
 ```ts
-// Add Measurement widget
 const measurement = new Measurement({
   view: view,
   activeTool = "direct-line",
@@ -403,6 +399,7 @@ measurement.startMeasurement();
 const lineOfSight = new LineOfSight({
   view: view
 });
+
 view.ui.add(lineOfSight, "top-right");
 ```
 
