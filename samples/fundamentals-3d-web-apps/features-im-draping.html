@@ -76,7 +76,7 @@
         view.when(function() {
           view.popup.autoOpenEnabled = false; //disable popups
 
-          view.goTo(integratedMeshLayer.fullExtent, { animate: false });
+          view.whenLayerView(integratedMeshLayer).then(() => view.goTo(integratedMeshLayer.fullExtent, { animate: false }));
 
           // Create the Editor
           let editor = new Editor({
