@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo</title>
+        <style>
+                html, body, #sceneview-container {
+                  padding: 0;
+                  margin: 0;
+                  height: 100%;
+                  width: 100%;
+                }
+
+                .top-nav {
+                  background: #863fe5;
+                  /* Old browsers */
+                  background: -moz-linear-gradient(-45deg, #2c16a7 0%, #5b2cce 20%, #7637db 90%, #863fe5 100%);
+                  /* FF3.6-15 */
+                  background: -webkit-linear-gradient(-45deg, #2c16a7 0%, #5b2cce 20%, #7637db 90%, #863fe5 100%);
+                  /* Chrome10-25,Safari5.1-6 */
+                  background: linear-gradient(-45deg, #2c16a7 0%, #5b2cce 20%, #7637db 90%, #863fe5 100%);
+                }
+
+                .top-nav-title {
+                  color: #fff;
+                }
+
+                .top-nav-link {
+                  color: #fff;
+                }
+
+                .header-title {
+                  font-weight: 400;
+                  font-style: normal;
+                  font-size: 1.2019rem;
+                  line-height: 1.5;
+                  float: left;
+                  margin-right: 1.5rem;
+                  padding-top: 1.125rem;
+                  padding-bottom: 1.25rem;
+                  line-height: 1.5rem;
+                  color: #fff;
+                }
+
+                .itemlist {
+                  width: 250px;
+                  background-color:white;
+                }
+
+                .itemlist .item:hover {
+                  background-color: aliceblue;
+                }
+
+                .itemlist .title {
+                  cursor: default;
+                  display: block;
+                  height: 25px;
+                  line-height: 25px;
+                  overflow: hidden;
+                  /*padding-left: 42px;*/
+                  margin-left: 5px;
+                  position: relative;
+                  text-overflow: ellipsis;
+                  vertical-align: middle;
+                  white-space: nowrap;
+                  z-index: 1;
+                }
+
+                .itemlist .title:hover {
+                  text-decoration: none;
+                }
+
+                #forkme-banner {
+                  display: block;
+                  position: absolute;
+                  top: 0;
+                  right: 10px;
+                  z-index: 10;
+                  padding: 10px 20px 10px 50px;
+                  color: #fff;
+                  background: url(./blacktocat.svg) #0090ff no-repeat 8% 50%;
+                  background-size: 25px;
+                  font-weight: 700;
+                  border: none;
+              }
+
+              #forkme-banner:hover {
+                text-decoration: none;
+              }
+
+
+              #camera-panel {
+                padding: 5px;
+                background-color: rgba(255, 255, 255);
+                font-size: 1.1em;
+              }
+
+              #nframes-attribution {
+                font-size: 0.7em;
+                line-height: 1.1em;
+                margin-bottom:0px;
+              }
+
+              .esri-feature-form.esri-widget.esri-widget--panel {
+                padding: 10px;
+              }
+        </style>
+            
+        <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.5/css/calcite-web.min.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/css/main.css">
+
+        <script>
+                // Local test-apps (dojo-config) will enable native promises but the app uses some dojo promise
+                // stuff. Explicitly force dojo promises for now.
+                var dojoConfig = {
+                  has: {
+                    "esri-native-promise": false
+                  }
+                };
+        </script>
+
+        <!-- script src="https://jscore.esri.com/debug/4.15/"></script -->
+        <!-- script src="https://jsdev.arcgis.com/4.15"></script-->
+        <!-- script src="https://localhost/arcgis-js-api-4/dojo/dojo.js"></script -->
+        <script src="https://js.arcgis.com/next/"></script>
+
+    </head>
+    <body>
+
+        <header class="top-nav fade-in" role="banner">
+          <a id="forkme-banner" href="https://github.com/dkoerner/arcgis-js-api-3d-web-editing-demo">View on GitHub</a>
+          <div class="grid-container">
+              <div class="column-24">
+                <span class="header-title">ArcGIS JS API - 3D Sketching and Editing</span>
+              </div>
+            </div>
+        </header>
+
+        <div id="sceneview-container"></div>
+
+        <div id="camera-panel" class="esri-widget" style="display:none">
+            <div id="camera-view-container" style="width: 320px; height:320px; border:1px solid black;display:none; margin-bottom: 5px;"></div>
+            <p id="nframes-attribution">Data by courtesy of <a href="http://www.nframes.com" target="_blank">nframes.com</a></p>
+        </div>
+
+
+          
+        <script>
+            require({
+                packages: [{
+                    name: "app",
+                    location: document.location.pathname.replace(/\/[^/]+$/, "")
+                }]
+            }, ["app/main"], function() {
+            });
+        </script>
+
+        <!-- script>
+          require(["esri/layers/FeatureLayer", "esri/views/SceneView", "esri/widgets/Editor"], function( FeatureLayer, SceneView, Editor ) {
+
+            var features = [
+              {
+                geometry: {
+                    type: "point",
+                    x: -100,
+                    y: 38,
+                    z: 0
+                },
+                attributes: {
+                  ObjectID: 1
+                }
+              }
+            ];
+            var renderer = {
+              type: "simple",  // autocasts as new SimpleRenderer()
+              symbol: {
+                type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+                size: 6,
+                color: "black",
+                outline: {  // autocasts as new SimpleLineSymbol()
+                  width: 0.5,
+                  color: "white"
+                }
+              }
+            };
+          
+            ///*
+            const fl = new FeatureLayer({
+                source: features,
+                renderer: renderer,
+                objectIdField: "ObjectID",
+                outFields: ["*"],
+                fields: [
+                    {
+                        name: "label",
+                        type: "string",
+                        defaultValue: ""
+                    }
+                ],
+                elevationInfo: {mode: "absolute-height"}
+            });
+
+            //var div = document.createElement("div");
+            //document.body.appendChild(div);
+            var view = new SceneView({
+              container: "sceneview-container",
+              map: {
+                basemap: "topo",
+                layers:[fl]
+              }
+            });
+
+
+            view.whenLayerView(fl).then(function(){
+              var editor = new Editor({view:view, container: document.createElement("div")});
+              view.ui.add(editor, "top-right");
+            });
+          });
+        </script -->
+    </body>
+</html>
