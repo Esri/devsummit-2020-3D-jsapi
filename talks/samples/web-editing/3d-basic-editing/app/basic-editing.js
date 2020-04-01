@@ -30,7 +30,7 @@ require([
 ) {
 
   const map = new Map({
-    basemap: "topo-vector",
+    basemap: "dark-gray-vector",
     ground: "world-elevation",
     layers:[
       new FeatureLayer({
