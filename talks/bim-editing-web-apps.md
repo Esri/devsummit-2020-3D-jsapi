@@ -417,7 +417,152 @@ view.ui.add(lineOfSight, "top-right");
 
 ## Feature layer editing
 
+---
 
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-00.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-01.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-02.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-03.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-04.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-05.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-06.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-07.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Sketch widget
+
+<div class="two-columns">
+  <div class="left-column">
+  <div class="code-snippet">
+    <button class="play" id="addSketch"></button>
+
+```ts
+const sketch = new Sketch({
+  layer: layer,
+  view: view
+});
+view.ui.add(sketch, "top-right");
+```
+  </div>
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/bim-editing/feature-editing/basic/index-sketch.html" ></iframe>
+  </div>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-07.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-08.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Editor widget
+
+<div class="two-columns">
+  <div class="left-column">
+  <div class="code-snippet">
+    <button class="play" id="addEditor"></button>
+
+```ts
+// Create the Editor 💥
+var editor = new Editor({ view: view });
+view.ui.add(editor, "top-right");
+```
+  </div>
+  </div>
+  <div class="right-column">
+    <iframe data-src="./samples/web-editing/3d-basic-editing/index-basic-editing.html" ></iframe>
+  </div>
+</div>
+
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-08.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+<img src="images/bim-editing/feature-editing/bim-editing-09.png" width="75%" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Setting up FeatureService for editing
+
+<img src="./images/bim-editing/feature-editing/feature-layer-settings.png" height="600" style="margin-left:10px; margin-right: 10px;"/>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### Advanced 3d editing example
+
+<div>
+<iframe style="width:70%" data-src="./samples/bim-editing/feature-editing/3d-web-editing-demo/index.html" ></iframe>
+</div>
+
+---
+
+<!-- .slide: data-background="images/bg-2.png" -->
+
+### More details on editing see session <br /> "Web Editing in 2D and 3D"
 
 ---
 
