@@ -1,7 +1,9 @@
 
 # 3D ArcGIS API for JavaScript
 
-Presentations for the 3D ArcGIS API for JavaScript that were shown at the Esri Developer Summit in Palm Springs 2020. The presentations are created with reveal.js, featuring interactive sample for which the source code can be found in this repository.
+This repository contains some of the 3D [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) sessions that were shown at the virtual Esri Developer Summit 2020. The presentations are created with reveal.js, featuring interactive samples for which the source code can be found in this repository.
+
+The full 2020 Developer Summit [technical session playlist](https://www.youtube.com/playlist?list=PLaPDDLTCmy4Ys8vfmC7DbX3FHSsyosvh7) is available on YouTube.
 
 ### [Fundamentals for Building 3D Web Apps](https://esri.github.io/devsummit-2020-3D-jsapi/fundamentals-3d-web-apps.html)
 
