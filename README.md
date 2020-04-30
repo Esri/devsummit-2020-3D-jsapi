@@ -16,7 +16,7 @@ Recording: https://www.youtube.com/watch?v=zo3wPofGN-0
 
 Discover the 3D capabilities of the ArcGIS API for JavaScript and learn how to leverage them to build stunning 3D web applications. This session will focus on the fundamental 3D building blocks of the API: SceneView, 2D and 3D layers, terrain, and symbology.
 
-[![Client-side queries](./talks/images/fundamentals-3d-web-apps/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/fundamentals-3d-web-apps.html)
+[![Client-side queries](https://esri.github.io/devsummit-2020-3D-jsapi/images/fundamentals-3d-web-apps/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/fundamentals-3d-web-apps.html)
 
 ---
 
@@ -31,7 +31,7 @@ Recording: https://www.youtube.com/watch?v=m0m7F8FuAlc
 
 Discover the next-generation web editing experience using version 4 of the ArcGIS API for JavaScript. You will learn how to enable and customize the API's editing components as well as create custom web mapping applications for various editing scenarios.
 
-[![3D Feature Update](./talks/images/web-editing/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/web-editing.html)
+[![3D Feature Update](https://esri.github.io/devsummit-2020-3D-jsapi/images/web-editing/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/web-editing.html)
 
 ---
 
@@ -44,7 +44,7 @@ Recording: https://www.youtube.com/watch?v=maEXHMI9ddQ
 
 Urban development processes often involve large interest groups and sometimes even the citizens themselves. This is where 3D based web application play an important role, as they are accessible yet intuitive. Using a range of 3D components, such as BuildingSceneLayers, editing feature layers and analysis tools, we can build powerful yet simple to use apps that run in the browser. In this session we will look at an example use case and deep dive into the application code.
 
-[![BuildingSceneLayer Filters](./talks/images/bim-editing/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/bim-editing-web-apps.html)
+[![BuildingSceneLayer Filters](https://esri.github.io/devsummit-2020-3D-jsapi/images/bim-editing/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/bim-editing-web-apps.html)
 
 ---
 
@@ -68,7 +68,3 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's [license.txt](./license.txt) file.
-
-## Test
-
-{{ page.url }}
