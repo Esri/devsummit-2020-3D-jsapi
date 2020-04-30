@@ -1,58 +1,56 @@
 
-# 3D ArcGIS API for JavaScript Sessions
+# 3D ArcGIS API for JavaScript
 
-Esri Developer Summit 2020 Palm Springs:
-https://esri.github.io/devsummit-2020-3D-jsapi/
+This repository contains some of the 3D [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) sessions that were shown at the virtual Esri Developer Summit 2020. The presentations are created with reveal.js, featuring interactive samples for which the source code can be found in this repository.
 
-## Usage
+The full 2020 Developer Summit [technical session playlist](https://www.youtube.com/playlist?list=PLaPDDLTCmy4Ys8vfmC7DbX3FHSsyosvh7) is available on YouTube.
 
-The presentations are built using [reveal-md](https://github.com/webpro/reveal-md). Use the following commands to run them locally:
+## Presentations
 
-```
-npm install
-npm run start
-```
+### [Fundamentals for Building 3D Web Apps](https://esri.github.io/devsummit-2020-3D-jsapi/fundamentals-3d-web-apps.html)
 
-This will launch the default browser and serve the presentations at http://localhost:1948
+Javier Gutierrez, Esri R&D Center Zürich<br />
+Thomas Other, Esri R&D Center Zürich
 
-**Deploying a new version**
+Recording: https://www.youtube.com/watch?v=zo3wPofGN-0
 
-We use GitHub pages to serve the reveal.js presentations using a dedicated branch for the deployment (as described in [this](https://medium.com/linagora-engineering/deploying-your-js-app-to-github-pages-the-easy-way-or-not-1ef8c48424b7) tutorial).
+Discover the 3D capabilities of the ArcGIS API for JavaScript and learn how to leverage them to build stunning 3D web applications. This session will focus on the fundamental 3D building blocks of the API: SceneView, 2D and 3D layers, terrain, and symbology.
 
-To deploy a new version, first make sure you have the `gh-pages` branch checked out in the `dist` folder.
+[![Client-side queries](./talks/images/fundamentals-3d-web-apps/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/fundamentals-3d-web-apps.html)
 
-```
-rm -rf dist
-git worktree add dist gh-pages
-```
+---
 
-After that build the project in the root folder.
+### [Web Editing in 2D and 3D](https://esri.github.io/devsummit-2020-3D-jsapi/web-editing.html)
 
-```
-npm run dist
-```
+Jonathan Uihlein, Esri<br />
+Heather Gonzago, Esri<br />
+David Koerner, Esri R&D Center Zürich
 
-No `cd` into the `dist` folder and push the new version to the `gh-pages` branch:
+[First part (2D)](https://bit.ly/2PKX5Mx) | [Second part (3D)](https://esri.github.io/devsummit-2020-3D-jsapi/web-editing.html)<br />
+Recording: https://www.youtube.com/watch?v=m0m7F8FuAlc
 
-```
-cd dist
-git add .
-git commit -am '💥'
-git push origin gh-pages
-```
+Discover the next-generation web editing experience using version 4 of the ArcGIS API for JavaScript. You will learn how to enable and customize the API's editing components as well as create custom web mapping applications for various editing scenarios.
 
-## Resources
-The following external libraries, APIs, open datasets and specifications were used to make this application:
-* [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
-* [Anime.js](https://animejs.com) for animations
+[![3D Feature Update](./talks/images/web-editing/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/web-editing.html)
 
-## Disclaimer
+---
 
-This demo application is for illustrative purposes only and it is not maintained. The area in Dumbo, Brooklyn NY used in the application is a fictional redevelopment area. There is no support available for deployment or development of the application.
+### [Create 3D planning web apps using BIM- and editing capabilities](https://esri.github.io/devsummit-2020-3D-jsapi/bim-editing-web-apps.html)
 
-## Contributing
+David Koerner, Esri R&D Center Zürich<br />
+Arno Fiva, Esri R&D Center Zürich
 
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
+Recording: https://www.youtube.com/watch?v=maEXHMI9ddQ
+
+Urban development processes often involve large interest groups and sometimes even the citizens themselves. This is where 3D based web application play an important role, as they are accessible yet intuitive. Using a range of 3D components, such as BuildingSceneLayers, editing feature layers and analysis tools, we can build powerful yet simple to use apps that run in the browser. In this session we will look at an example use case and deep dive into the application code.
+
+[![BuildingSceneLayer Filters](./talks/images/bim-editing/thumbnail.png)](https://esri.github.io/devsummit-2020-3D-jsapi/bim-editing-web-apps.html)
+
+---
+
+## Installation & Contributing
+
+Esri welcomes contributions from anyone and everyone. Please see[CONTRIBUTING.md](https://github.com/Esri/devsummit-2020-3D-jsapi/blob/master/CONTRIBUTING.md) for more details.
 
 ## Licensing
 Copyright 2020 Esri
